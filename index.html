@@ -80,6 +80,56 @@ p { margin: 0; }
 .hero-mark { position: absolute; z-index: -1; left: 50%; top: 40px; width: min(820px, 120vw); aspect-ratio: 1; margin-left: calc(min(820px, 120vw) / -2); opacity: .045;
   background: url(img/logo.png?v=2) center / contain no-repeat; filter: brightness(1.6); }
 .hero .kicker { justify-content: center; }
+/* логотип: шестерня и пламя отдельными слоями */
+.hero-logo { position: relative; width: 88px; height: 88px; margin: 0 auto 20px; }
+.hero-logo .ring-w, .hero-logo img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-logo img { filter: brightness(1.65) saturate(1.1); }
+.hero-logo .flame { transform-origin: 50% 72%; }
+.hero-logo::before { content: ""; position: absolute; inset: -60%; z-index: -1; border-radius: 50%; opacity: .5;
+  background: radial-gradient(closest-side, rgba(231, 165, 77, .28), rgba(60, 201, 156, .14) 55%, transparent); }
+
+/* приближение: дом → котельная → дымоход → предупреждение */
+.zt { position: relative; height: 420vh; }
+.zs { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; overflow: hidden; }
+.zs-in { width: 100%; display: grid; grid-template-columns: minmax(0, .55fr) minmax(0, 1.6fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.zsteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.zsteps li { opacity: .38; transition: opacity .5s var(--ease); border-left: 2px solid var(--line-2); padding-left: 16px; }
+.zsteps li.on { opacity: 1; border-color: var(--teal); }
+.zsteps h3 { margin: 6px 0 4px; font-size: 19px; letter-spacing: -.01em; }
+.zsteps p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+.zv { position: relative; aspect-ratio: 1440 / 900; overflow: hidden; background: #efe9dc; contain: paint; }
+.win .zv > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; will-change: transform, opacity; }
+.zv .z1 { opacity: 0; }
+.zv::after { content: ""; position: absolute; inset: 0; background: #0b1512; opacity: var(--dim, 0); pointer-events: none; }
+.zcard { position: absolute; z-index: 2; opacity: 0; color: #1d2925; background: #fbf8f1; border: 1px solid #e3dccb; border-radius: 14px;
+  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .45); font-size: 13px; line-height: 1.4; will-change: transform, opacity; }
+.zread { right: 3%; top: 7%; width: 31%; padding: 12px 14px 6px; }
+.zread b { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 6px; }
+.zread .tag, .zalert .tag { font-size: 11px; font-weight: 600; border-radius: 99px; padding: 2px 9px; background: #f6e2b8; color: #8a5a12; }
+.zread dl { margin: 0; }
+.zread dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px dashed #e3dccb; }
+.zread dt { color: #55615c; } .zread dd { margin: 0; font-weight: 700; white-space: nowrap; }
+.zread .hot { background: #fbeacb; margin: 0 -8px; padding: 6px 8px; border-radius: 8px; border-top-color: transparent; }
+.zalert { left: 4%; bottom: 7%; width: 52%; max-width: 470px; padding: 14px 16px; background: #f9e7bf; border-color: #efcf8c; border-left: 4px solid #e39a2f; }
+.zalert b { display: flex; gap: 8px; align-items: center; font-size: 15px; margin-bottom: 6px; }
+.zalert .tag { background: #fff6e2; font-family: var(--mono); }
+.zalert p { margin: 0; color: #3b3a2f; }
+.zalert small { display: block; margin-top: 8px; color: #7c7562; font-size: 11.5px; }
+.zstatic .zt { height: auto; }
+.zstatic .zs { position: static; height: auto; padding-block: 24px; }
+.zstatic .zsteps li { opacity: 1; }
+@media (max-width: 900px) {
+  .zs-in { grid-template-columns: 1fr; gap: 16px; }
+  .zsteps { grid-template-columns: repeat(4, 1fr); gap: 8px; order: -1; }
+  .zsteps li { padding-left: 8px; }
+  .zsteps h3 { font-size: 13px; margin: 2px 0 0; }
+  .zsteps p { display: none; }
+  .zstatic .zsteps p { display: block; font-size: 12px; }
+  .zv { aspect-ratio: 4 / 5; }
+  .zread { top: 3%; right: 3%; width: 62%; font-size: 12px; padding: 10px 12px 4px; }
+  .zalert { left: 3%; right: 3%; bottom: 3%; width: auto; font-size: 12.5px; padding: 12px 13px; }
+  .hero-logo { width: 68px; height: 68px; margin-bottom: 14px; }
+}
 .hero h1 { font-weight: 800; font-size: clamp(42px, 8.2vw, 112px); line-height: .98; letter-spacing: -.045em; margin: 22px auto 0; max-width: 11.5em; }
 .hero .lead { margin: 28px auto 0; max-width: 40em; font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-2); line-height: 1.6; }
 .hero-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 38px; }
@@ -339,6 +389,14 @@ footer .brand b { font-size: 14px; }
   .js .words.in .w { opacity: 1; transform: none; filter: none; }
   .hero-mark { animation: spin 140s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .hero-logo .ring-w { animation: ringIn 1.3s cubic-bezier(.2, .75, .2, 1) both; }
+  .hero-logo .ring { animation: spin 70s linear 1.3s infinite; }
+  .hero-logo .flame { animation: flameIn .95s cubic-bezier(.3, .7, .3, 1) .55s both, flick 2.8s ease-in-out 1.6s infinite; }
+  .hero-logo::before { animation: glow 1.6s ease-out .55s both; }
+  @keyframes ringIn { from { opacity: 0; transform: rotate(-160deg) scale(.5); } 50% { opacity: 1; } to { opacity: 1; transform: none; } }
+  @keyframes flameIn { 0% { opacity: 0; transform: scale(.25, 0); } 55% { opacity: 1; transform: scale(1.06, 1.18); } 78% { transform: scale(.97, .94); } 100% { opacity: 1; transform: none; } }
+  @keyframes flick { 0%, 100% { transform: none; } 50% { transform: scale(1.03, 1.06); } }
+  @keyframes glow { 0% { opacity: 0; transform: scale(.4); } 45% { opacity: 1; transform: scale(1.1); } 100% { opacity: .5; transform: none; } }
   .orbit .ring-2 { animation: dash 26s linear infinite; }
   @keyframes dash { to { stroke-dashoffset: -240; } }
   .orbit .halo { transform-box: fill-box; transform-origin: center; animation: halo 3s var(--ease) infinite; }
@@ -403,7 +461,7 @@ footer .brand b { font-size: 14px; }
   .js .rv { transform: translateY(18px); transition-duration: .7s, .7s; }
 }
 .lite .rv, .lite .words .w { filter: none !important; transition: opacity .45s ease !important; transform: none !important; transition-delay: 0s !important; }
-.lite .hero-mark, .lite .orbit .ring-2, .lite .orbit .halo { animation: none !important; }
+.lite .hero-mark, .lite .orbit .ring-2, .lite .orbit .halo, .lite .hero-logo *, .lite .hero-logo::before { animation: none !important; }
 .lite .card::after { display: none; }
 .lite .nav.solid { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(6, 13, 11, .96); }
 .lite .lb::backdrop { backdrop-filter: none; }
@@ -411,7 +469,7 @@ footer .brand b { font-size: 14px; }
 .chart-scroll { overflow-x: auto; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
 @media (max-width: 700px) { .chart-scroll svg { min-width: 680px; } .timechart-head::after { content: "листайте →"; font-family: var(--mono); font-size: 11px; color: var(--ink-3); } }
 </style>
-<script>/* старый браузер без WebP: подменить снимок на JPEG */document.addEventListener('error',function(e){var t=e.target;if(t.tagName==='IMG'&&/\.webp$/.test(t.src)){t.src=t.src.replace(/\.webp$/,'.jpg');}},true);</script>
+<script>/* старый браузер без WebP: подменить снимок на JPEG */document.addEventListener('error',function(e){var t=e.target;if(t.tagName==='IMG'&&/\.webp$/.test(t.src)){t.src=t.src.replace(/\.webp$/,/logo_/.test(t.src)?'.png':'.jpg');}},true);</script>
 </head>
 <body>
 
@@ -430,19 +488,20 @@ footer .brand b { font-size: 14px; }
 <header class="hero" id="top">
   <div class="hero-mark" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="kicker rv">ООО «ИГИХ Инжиниринг»</span>
-    <h1 class="words">Платформа <span class="grad">предиктивной</span> безопасности</h1>
-    <p class="lead rv" style="--d:.35s">Глобальная экосистема интернета вещей с искусственным интеллектом (AIoT) упреждающего контроля и предотвращения катастрофических рисков на объектах большой стоимости.</p>
-    <div class="hero-acts rv" style="--d:.5s">
+    <div class="hero-logo" aria-hidden="true"><div class="ring-w"><img class="ring" src="img/logo_ring.webp" width="224" height="224" alt=""></div><img class="flame" src="img/logo_flame.webp" width="224" height="224" alt=""></div>
+    <span class="kicker rv" style="--d:.5s">ООО «ИГИХ Инжиниринг»</span>
+    <h1 class="words" style="--d:.75s">Платформа <span class="grad">предиктивной</span> безопасности</h1>
+    <p class="lead rv" style="--d:1.1s">Глобальная экосистема интернета вещей с искусственным интеллектом (AIoT) упреждающего контроля и предотвращения катастрофических рисков на объектах большой стоимости.</p>
+    <div class="hero-acts rv" style="--d:1.25s">
       <a class="btn primary" href="#objects">Посмотреть объекты <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       <a class="btn" href="#status">Статус и инвестиции</a>
     </div>
   </div>
   <div class="stage-wrap wrap">
     <div class="stage" id="stage">
-      <div class="win rv" style="--d:.6s"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · частный дом · пилот</span></div>
+      <div class="win rv" style="--d:1.35s"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · частный дом · пилот</span></div>
         <img src="img/house.webp" width="1440" height="900" fetchpriority="high" alt="Приложение ИГИХ: частный дом целиком, у котельной предупреждение" data-cap="Приложение ИГИХ: частный дом целиком, у котельной предупреждение"></div>
-      <figure class="float rv" style="--d:.9s"><img src="img/house_panel.webp" width="345" height="463" alt="Тревоги и показания датчиков" data-cap="Тревоги и показания датчиков"><figcaption>показания крупно</figcaption></figure>
+      <figure class="float rv" style="--d:1.6s"><img src="img/house_panel.webp" width="345" height="463" alt="Тревоги и показания датчиков" data-cap="Тревоги и показания датчиков"><figcaption>показания крупно</figcaption></figure>
     </div>
     <p class="zoom-tip">Нажмите на любой снимок, чтобы открыть его на весь экран. Повторное нажатие — исходный размер.</p>
   </div>
@@ -541,6 +600,40 @@ footer .brand b { font-size: 14px; }
       <div class="bridge-row rv" style="--d:0.06s"><div class="from"><b>было</b>Сирена, когда авария уже случилась</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Предупреждение заранее: по сочетанию причин и прогнозу погоды</div></div>
       <div class="bridge-row rv" style="--d:0.12s"><div class="from"><b>было</b>Несколько систем, и каждая видит только своё</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Оборудование, люди и погода в одной картине</div></div>
       <div class="bridge-row rv" style="--d:0.18s"><div class="from"><b>было</b>Нечем доказать, что произошло</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Журнал событий: запись нельзя изменить или удалить</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="zoom" aria-label="От всего дома до одной причины">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="kicker rv">Как это выглядит</span>
+      <h2 class="words">От всего дома — до одной причины</h2>
+      <p class="intro rv">Прокрутите вниз: приложение ведёт от плана объекта к прибору, который требует внимания, и объясняет, что проверить.</p>
+    </div>
+  </div>
+  <div class="zt" id="zt">
+    <div class="zs">
+      <div class="wrap zs-in">
+        <ol class="zsteps" id="zsteps">
+          <li class="on"><span class="mono">01</span><h3>Весь дом</h3><p>Одна комната отмечена жёлтым — остальное в норме.</p></li>
+          <li><span class="mono">02</span><h3>Котельная</h3><p>Каждый прибор окрашен своим состоянием.</p></li>
+          <li><span class="mono">03</span><h3>Дымоход</h3><p>Показания датчиков рядом с прибором.</p></li>
+          <li><span class="mono">04</span><h3>Причина</h3><p>Не просто «тревога», а что случилось и что проверить.</p></li>
+        </ol>
+        <div class="win"><div class="win-bar"><i></i><i></i><i></i><span id="zbar">ИГИХ · частный дом · весь дом</span></div>
+          <div class="zv" id="zv">
+            <img class="z0" src="img/house.webp" width="1440" height="900" alt="Приложение ИГИХ: частный дом целиком" loading="lazy">
+            <img class="z1" src="img/boiler.webp" width="1440" height="900" alt="Приложение ИГИХ: котельная" loading="lazy">
+            <div class="zcard zread" aria-label="Показания дымохода"><b>Дымоход <span class="tag">Внимание</span></b>
+              <dl><div class="hot"><dt>Тяга дымохода</dt><dd>8,3 Па</dd></div><div><dt>Тяга вентканала</dt><dd>2,4 Па</dd></div>
+              <div><dt>Температура газов</dt><dd>165 °C</dd></div><div><dt>На улице</dt><dd>−5,9 °C</dd></div></dl></div>
+            <div class="zcard zalert" role="note"><b><span class="tag">C1</span>Засор дымохода?</b>
+              <p>Тяга дымохода ниже прогноза по погоде; вентканал в норме — помещение ни при чём. Проверить оголовок, газоход котла и дымоход.</p>
+              <small>только что · то же сообщение приходит в мессенджер</small></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -768,6 +861,60 @@ footer .brand b { font-size: 14px; }
     pinImgs.forEach((im, j) => im.classList.toggle('on', j === i));
     pinFl.forEach((f, j) => f.classList.toggle('on', j === i));
   };
+
+  // ---------- приближение: дом → котельная → дымоход → причина ----------
+  (() => {
+    const sec = document.getElementById('zoom'), zt = document.getElementById('zt'), zv = document.getElementById('zv');
+    if (!sec || !zv) return;
+    const z0 = zv.querySelector('.z0'), z1 = zv.querySelector('.z1'), zr = zv.querySelector('.zread'), za = zv.querySelector('.zalert');
+    const steps = [...document.querySelectorAll('#zsteps li')], bar = document.getElementById('zbar');
+    const BARS = ['ИГИХ · частный дом · весь дом', 'ИГИХ · частный дом · котельная', 'ИГИХ · котельная · дымоход', 'ИГИХ · котельная · тревога C1'];
+    const cl = (v) => v < 0 ? 0 : v > 1 ? 1 : v, seg = (p, a, b) => cl((p - a) / (b - a)), ease = (t) => t * t * (3 - 2 * t);
+    // точки приближения на снимках 1440×900: котельная на плане дома, дымоход в котельной
+    const F0 = [410, 270, 2.5], F1 = [565, 300, 2.1];
+    let W = 0, H = 0, k = 1, ox = 0, oy = 0, last = -1, step = -1;
+    const measure = () => {
+      W = zv.clientWidth; H = zv.clientHeight; k = Math.max(W / 1440, H / 900);
+      ox = (W - 1440 * k) * 0.3; oy = (H - 900 * k) * 0.5; last = -1;
+    };
+    const place = (img, f, t) => {  // t: 0 — исходный вид, 1 — точка f в центре и увеличена
+      const fx = ox + f[0] * k, fy = oy + f[1] * k, s = 1 + (f[2] - 1) * t;
+      img.style.transformOrigin = fx + 'px ' + fy + 'px';
+      img.style.transform = 'translate(' + ((W / 2 - fx) * t).toFixed(1) + 'px,' + ((H / 2 - fy) * t).toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
+    };
+    const show = (el, t, dy) => { el.style.opacity = t.toFixed(3); el.style.transform = 'translateY(' + ((1 - t) * dy).toFixed(1) + 'px)'; };
+    const render = (p) => {
+      if (Math.abs(p - last) < 0.0005) return; last = p;
+      const a = ease(seg(p, 0.02, 0.3)), x = seg(p, 0.24, 0.36), b = ease(seg(p, 0.38, 0.62));
+      place(z0, F0, a); z0.style.opacity = (1 - x).toFixed(3);
+      z1.style.opacity = x.toFixed(3);
+      if (b > 0) place(z1, F1, b); else { z1.style.transformOrigin = '50% 50%'; z1.style.transform = 'scale(' + (0.9 + 0.1 * ease(x)).toFixed(3) + ')'; }
+      show(zr, ease(seg(p, 0.55, 0.66)), 18); show(za, ease(seg(p, 0.74, 0.86)), 26);
+      zv.style.setProperty('--dim', (0.35 * seg(p, 0.74, 0.86)).toFixed(3));
+      const st = p < 0.27 ? 0 : p < 0.52 ? 1 : p < 0.72 ? 2 : 3;
+      if (st !== step) { step = st; steps.forEach((li, j) => li.classList.toggle('on', j === st)); bar.textContent = BARS[st]; }
+    };
+    const still = () => reduce || root.classList.contains('lite');
+    let raf = 0;
+    const tick = () => {
+      raf = 0;
+      if (still()) return toStatic();
+      const r = zt.getBoundingClientRect(), span = r.height - innerHeight;
+      if (r.bottom < -200 || r.top > innerHeight + 200) return;
+      render(span > 0 ? cl(-r.top / span) : 1);
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    const toStatic = () => {
+      removeEventListener('scroll', onScroll); sec.classList.add('zstatic');
+      measure(); render(1); steps.forEach((li) => li.classList.add('on'));
+    };
+    measure();
+    if (still()) return toStatic();
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', () => { measure(); onScroll(); });
+    setTimeout(onScroll, 800);  // режим lite определяется через ~0,7 с
+    render(0);
+  })();
 
   // ---------- заголовки по словам ----------
   document.querySelectorAll('.words').forEach((h) => {
