@@ -442,7 +442,11 @@ footer .brand b { font-size: 14px; }
 .ph-kb button { font: inherit; font-size: 12.3px; color: #fff; background: rgba(40, 60, 54, .9); border: 0; border-radius: 10px; padding: 8px 6px; cursor: pointer; transition: background .2s; }
 .ph-kb button:hover { background: rgba(60, 201, 156, .3); }
 .ph-kb button.wide { grid-column: 1 / -1; }
-.ph-kb[hidden] { display: none; }
+.ph-kb[hidden], .ph-redo[hidden] { display: none; }
+.ph-redo { align-self: center; margin-top: 4px; font: inherit; font-size: 12.5px; color: #5fd6ad; background: rgba(95, 214, 173, .12); border: 1px solid rgba(95, 214, 173, .35);
+  border-radius: 99px; padding: 7px 14px; cursor: pointer; animation: jrIn .5s var(--ease); }
+.ph-redo:hover { background: rgba(95, 214, 173, .22); }
+.ph-head .back { font: inherit; font-size: 28px; line-height: 1; color: #5fd6ad; background: none; border: 0; padding: 0 4px 2px 0; cursor: pointer; }
 .ph-again { font: inherit; font-size: 13px; color: var(--ink-2); background: none; border: 1px solid var(--line-2); border-radius: 99px; padding: 7px 16px; cursor: pointer; }
 .ph-again:hover { color: var(--ink); border-color: var(--teal); }
 .ph-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); text-align: center; }
@@ -769,7 +773,7 @@ footer .brand b { font-size: 14px; }
               <div class="ph-hint">нажмите на уведомление</div>
             </div>
             <div class="ph-chat">
-              <div class="ph-head"><span class="back">‹</span><i class="ph-ico"></i><span><b>ИГИХ</b><small>бот объекта</small></span></div>
+              <div class="ph-head"><button class="back" id="phBack" type="button" aria-label="Назад, к экрану блокировки">‹</button><i class="ph-ico"></i><span><b>ИГИХ</b><small>бот объекта</small></span></div>
               <div class="ph-msgs">
                 <div class="ph-msg"><b>🟠 ТРЕБУЕТ ВМЕШАТЕЛЬСТВА</b><br>🏭 <b>Частный дом</b><br><br>📍 <b>Где:</b> котельная, дымоход<br>⚠️ <b>Что:</b> Засор дымохода? — уверенность средняя
                   <q>🧯 <b>Что делать:</b> проверить оголовок, газоход котла и дымоход.</q>
@@ -778,6 +782,7 @@ footer .brand b { font-size: 14px; }
                   <button class="wide" data-a="acc">👀 Принято — занимаюсь</button>
                   <button data-a="res">✅ Устранено</button><button data-a="fal">❎ Ложная тревога</button>
                 </div>
+                <button class="ph-redo" id="phRedo" type="button" hidden>↺ Выбрать другой ответ</button>
               </div>
             </div>
             <div class="ph-home"></div>
@@ -1134,10 +1139,15 @@ footer .brand b { font-size: 14px; }
     const open = () => { tm.forEach(clearTimeout); ph.classList.add('chat'); };
     const play = () => {
       tm.forEach(clearTimeout); tm = [];
-      ph.classList.remove('chat'); note.classList.remove('in'); kb.hidden = false; foot.hidden = true;
+      ph.classList.remove('chat'); note.classList.remove('in'); reset();
       if (still()) { note.classList.add('in'); ph.classList.add('chat'); return; }
       tm.push(setTimeout(() => note.classList.add('in'), 700), setTimeout(open, 3600));
     };
+    let answers = 0;
+    const redo = document.getElementById('phRedo');
+    const reset = () => { kb.hidden = false; foot.hidden = true; redo.hidden = true; };
+    redo.addEventListener('click', reset);
+    document.getElementById('phBack').addEventListener('click', play);
     note.addEventListener('click', open);
     note.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
     const ACT = { acc: ['👀 Принял: вы, 18:42', 'Владелец: «Принято — занимаюсь»'], res: ['✅ Устранил: вы, 18:42', 'Владелец: «Устранено»'],
@@ -1145,8 +1155,10 @@ footer .brand b { font-size: 14px; }
     kb.addEventListener('click', (e) => {
       const b = e.target.closest('[data-a]'); if (!b) return;
       const [f, j] = ACT[b.dataset.a];
-      foot.textContent = f; foot.hidden = false; kb.hidden = true;
-      journalAdd.forEach((fn) => fn('18:42', j));
+      foot.textContent = f; foot.hidden = false; kb.hidden = true; redo.hidden = false;
+      const t = '18:' + String(42 + answers++).padStart(2, '0');
+      foot.textContent = f.replace('18:42', t);
+      journalAdd.forEach((fn) => fn(t, j));
     });
     document.getElementById('phAgain').addEventListener('click', play);
     if ('IntersectionObserver' in window) {
@@ -1163,7 +1175,7 @@ footer .brand b { font-size: 14px; }
     const rows = [[12, '17:30', 'Узел датчиков на связи'], [13, '18:02', 'Горелка включилась'], [14, '18:15', 'Прогноз погоды обновлён'],
       [15, '18:38', 'Тяга дымохода ниже прогноза по погоде'], [16, '18:41', 'C1 «Засор дымохода?» — требует вмешательства'],
       [17, '18:41', 'Отправлены SMS и сообщение в мессенджер']].map(([n, t, x]) => ({ n, t, x }));
-    const FAKE = 'Тяга в норме, событий нет', ORIG = rows[4].x;
+    const FAKE = 'Тяга в норме, событий нет', ORIG = rows[4].x, INIT = rows.map((o) => ({ ...o }));
     const fnv = (s) => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); };
     const sha = async (s) => {
       try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].slice(0, 4).map((v) => v.toString(16).padStart(2, '0')).join(''); }
@@ -1185,24 +1197,24 @@ footer .brand b { font-size: 14px; }
       btn.textContent = fake ? 'Вернуть как было' : 'Попробовать подделать запись №16';
     };
     const build = async () => {  // честная цепочка
-      let prev = '00000000';
+      let prev = rows[0].prev || '00000000';
       for (const r of rows) { r.prev = prev; r.bad = ''; r.h = await sha(body(r)); prev = r.h; }
     };
     const add = async (t, x) => {
-      if (rows.length > 7) return;
       const r = { n: rows[rows.length - 1].n + 1, t, x, prev: rows[rows.length - 1].h, bad: '' };
       r.h = await sha(body(r)); rows.push(r);
-      if (fake) { r.prev = rows[rows.length - 2].h; r.h = await sha(body(r)); }
+      while (rows.length > 8 && rows[0].n < 16) rows.shift();  // показываем последние записи; №16–17 всегда на месте
+      if (rows.length > 8) { rows.splice(0, rows.length, ...INIT.map((o) => ({ ...o }))); fake = false; await build(); return add(t, x); }
       render(rows.length - 1);
     };
     journalAdd.push(add);
     btn.addEventListener('click', async () => {
       if (busy) return; busy = true;
       fake = !fake;
-      const r = rows[4];
+      const k = rows.findIndex((o) => o.n === 16), r = rows[k];
       if (fake) {
         r.x = FAKE; r.h = await sha(body(r)); r.bad = 'edit';
-        for (let i = 5; i < rows.length; i++) rows[i].bad = i === 5 ? 'link' : '';
+        for (let i = k + 1; i < rows.length; i++) rows[i].bad = i === k + 1 ? 'link' : '';
       } else { r.x = ORIG; await build(); }
       render(); busy = false;
     });
