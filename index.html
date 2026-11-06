@@ -485,6 +485,18 @@ footer .brand b { font-size: 14px; }
 }
 .lite .ph-note { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(60, 80, 74, .92); }
 
+/* ---------- свидетельства ---------- */
+.certs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 26px); margin-top: 48px; }
+.cert { margin: 0; }
+.cert img { display: block; width: 100%; height: auto; border-radius: 10px; background: #fff; cursor: zoom-in;
+  box-shadow: 0 0 0 1px var(--line-2), 0 24px 50px -24px rgba(0, 0, 0, .8); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+.cert img:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--teal), 0 30px 60px -24px rgba(0, 0, 0, .8); }
+.cert figcaption { margin-top: 12px; font-size: 15px; color: var(--ink); text-align: center; }
+.cert figcaption small { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-top: 2px; }
+.cert-note { margin-top: 22px; text-align: center; font-size: 14px; color: var(--ink-3); }
+@media (max-width: 860px) { .certs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.hero-logo.off *, .hero-logo.off::before { animation: none !important; }
+
 /* ---------- анимации ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .card:hover { transform: translateY(-4px); }
@@ -497,7 +509,7 @@ footer .brand b { font-size: 14px; }
   .hero-mark { animation: spin 140s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .hero-logo .ring-w { animation: ringIn 1.3s cubic-bezier(.2, .75, .2, 1) both; }
-  .hero-logo .ring { animation: spin 70s linear 1.3s infinite; }
+  .hero-logo .ring { animation: spin 28s linear 1.3s infinite; }
   .hero-logo .flame { animation: flameIn .95s cubic-bezier(.3, .7, .3, 1) .55s both, flick 2.8s ease-in-out 1.6s infinite; }
   .hero-logo::before { animation: glow 1.6s ease-out .55s both; }
   @keyframes ringIn { from { opacity: 0; transform: rotate(-160deg) scale(.5); } 50% { opacity: 1; } to { opacity: 1; transform: none; } }
@@ -955,6 +967,23 @@ footer .brand b { font-size: 14px; }
   </div>
 </section>
 
+<section class="sec" id="cert">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="kicker rv">Защита прав</span>
+      <h2 class="words">Техническое задание задепонировано</h2>
+      <p class="intro rv">Техническое задание на платформу «IGIH ecoDur Engineering», версия 1.0 (редакция от 29.10.2026), зарегистрировано 06.11.2026 в блокчейн-сети РЦИС.РФ через сервис n’RIS. Свидетельство РЦИС № 1797-131-440, регистрационный номер n’RIS 494-977-190.</p>
+    </div>
+    <div class="certs">
+      <figure class="cert rv"><img src="img/cert/rcis_ru_s.webp" data-full="img/cert/rcis_ru.webp" width="422" height="597" loading="lazy" alt="Свидетельство РЦИС № 1797-131-440" data-cap="Свидетельство РЦИС № 1797-131-440"><figcaption>Свидетельство РЦИС<small>на русском</small></figcaption></figure>
+      <figure class="cert rv" style="--d:.08s"><img src="img/cert/nris_ru_s.webp" data-full="img/cert/nris_ru.webp" width="421" height="596" loading="lazy" alt="Свидетельство о депонировании файла n’RIS № 494-977-190" data-cap="Свидетельство о депонировании n’RIS № 494-977-190 (паспортные данные скрыты)"><figcaption>Депонирование n’RIS<small>на русском</small></figcaption></figure>
+      <figure class="cert rv" style="--d:.16s"><img src="img/cert/rcis_en_s.webp" data-full="img/cert/rcis_en.webp" width="422" height="597" loading="lazy" alt="Russian IP Transaction Center Certificate No. 1536-242-625" data-cap="Russian IP Transaction Center Certificate No. 1536-242-625"><figcaption>Certificate RCIS<small>in English</small></figcaption></figure>
+      <figure class="cert rv" style="--d:.24s"><img src="img/cert/nris_en_s.webp" data-full="img/cert/nris_en.webp" width="421" height="596" loading="lazy" alt="n’RIS Certificate of deposit 494-977-190" data-cap="n’RIS Certificate of deposit 494-977-190 (passport data hidden)"><figcaption>Certificate of deposit<small>in English</small></figcaption></figure>
+    </div>
+    <p class="cert-note rv">Нажмите на документ, чтобы открыть его крупно. Паспортные данные автора на сайте скрыты.</p>
+  </div>
+</section>
+
 <footer><div class="wrap"><a class="brand" href="#top"><img src="img/logo.png?v=2" alt=""><b>ИГИХ</b></a><span>© 2026 ООО «ИГИХ Инжиниринг»</span><span>Демо-версия · данные пилота на 02.11.2026</span></div></footer>
 
 <dialog class="lb" id="lb" aria-label="Просмотр фото"><button class="lb-x" type="button" aria-label="Закрыть">×</button><img alt=""><p></p></dialog>
@@ -967,9 +996,18 @@ footer .brand b { font-size: 14px; }
   // облегчённый режим: экономия трафика, мало памяти или низкая частота кадров (режим энергосбережения ≈ 30 кадров/с)
   const conn = navigator.connection || {};
   if (conn.saveData || (navigator.deviceMemory && navigator.deviceMemory <= 2)) root.classList.add('lite');
-  (() => { let n = 0; const t0 = performance.now();
-    const f = (t) => { n++; if (t - t0 < 700) requestAnimationFrame(f); else if (n / ((t - t0) / 1000) < 45) root.classList.add('lite'); };
-    requestAnimationFrame(f); })();
+  (() => {  // два замера по 0,8 с после загрузки; на скрытой вкладке не мерим — браузер там сам режет кадры
+    let slow = 0;
+    const measure = (k) => {
+      if (document.hidden) return setTimeout(() => measure(k), 1000);
+      let n = 0; const t0 = performance.now();
+      const f = (t) => { n++; if (t - t0 < 800) return requestAnimationFrame(f);
+        if (!document.hidden && n / ((t - t0) / 1000) < 40) slow++;
+        if (k < 2) setTimeout(() => measure(k + 1), 600); else if (slow === 2) root.classList.add('lite'); };
+      requestAnimationFrame(f);
+    };
+    setTimeout(() => measure(1), 1200);
+  })();
 
   // ---------- объекты: чередующиеся кейсы ----------
   const OBJ = [
@@ -1232,6 +1270,17 @@ footer .brand b { font-size: 14px; }
     if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   });
 
+  // ---------- логотип: заставка повторяется, когда первый экран снова виден ----------
+  (() => {
+    const lg = document.querySelector('.hero-logo');
+    if (!lg || !('IntersectionObserver' in window)) return;
+    let away = false;
+    new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) { away = true; lg.classList.add('off'); }
+      else if (away) { away = false; void lg.offsetWidth; lg.classList.remove('off'); }
+    }), { threshold: 0 }).observe(lg);
+  })();
+
   // ---------- заголовки по словам ----------
   document.querySelectorAll('.words').forEach((h) => {
     let i = 0;
@@ -1271,10 +1320,9 @@ footer .brand b { font-size: 14px; }
   };
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
+      if (!e.isIntersecting) { if (e.boundingClientRect.top > innerHeight) e.target.classList.remove('in'); return; }
       e.target.classList.add('in');
       e.target.querySelectorAll('[data-count]').forEach(countUp);
-      io.unobserve(e.target);
     }), { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
     revealEls.forEach((el) => io.observe(el));
     const co = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) setChapter(+e.target.dataset.i); }), { rootMargin: '-45% 0px -45% 0px' });
@@ -1333,9 +1381,9 @@ footer .brand b { font-size: 14px; }
   // ---------- фото на весь экран ----------
   const lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
   document.addEventListener('click', (e) => {
-    const im = e.target.closest('.win img, .float img');
+    const im = e.target.closest('.win img, .float img, .cert img');
     if (im && !lb.open) {
-      lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = im.dataset.cap || im.alt;
+      lbImg.src = im.dataset.full || im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = im.dataset.cap || im.alt;
       lb.classList.remove('big'); lb.showModal(); return;
     }
     if (!lb.open) return;
