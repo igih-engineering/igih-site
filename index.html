@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<script>/* всегда открывать с начала: без восстановления прокрутки и без перехода к #разделу из ссылки */try{history.scrollRestoration='manual';if(location.hash)history.replaceState(null,'',location.pathname+location.search);}catch(e){}addEventListener('pageshow',function(){scrollTo(0,0);});</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ИГИХ — платформа предиктивной безопасности</title>
 <meta name="description" content="ООО «ИГИХ Инжиниринг»: AIoT-платформа, которая предупреждает аварии на объектах заранее.">
@@ -1220,6 +1221,16 @@ footer .brand b { font-size: 14px; }
     });
     build().then(() => render());
   })();
+
+  // ---------- ссылки внутри страницы: прокрутка без «#раздел» в адресе ----------
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented) return;
+    const id = a.getAttribute('href').slice(1), el = id ? document.getElementById(id) : null;
+    if (!id) return;
+    e.preventDefault();
+    if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  });
 
   // ---------- заголовки по словам ----------
   document.querySelectorAll('.words').forEach((h) => {
