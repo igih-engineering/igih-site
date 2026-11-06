@@ -378,6 +378,106 @@ footer .brand b { font-size: 14px; }
 .lb[open] { animation: lbIn .35s var(--ease); }
 @keyframes lbIn { from { opacity: 0; transform: scale(.97); } }
 
+/* ---------- график: ползунки ---------- */
+.timechart .fc { fill: none; stroke: var(--teal); stroke-width: 1.5; stroke-dasharray: 5 6; opacity: .55; }
+.tc-ctl { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 18px 28px; align-items: end; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.tc-ctl label { display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.tc-ctl small { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--ink-3); }
+.tc-ctl small i { font-style: normal; }
+.tc-ctl input[type=range] { width: 100%; accent-color: var(--teal); height: 28px; margin: 0; cursor: pointer; touch-action: pan-y; }
+.tc-out { font-size: 14.5px; line-height: 1.5; color: var(--ink); min-height: 3em; }
+.tc-out b { color: var(--signal); font-weight: 600; } .tc-out b.ok { color: var(--teal); } .tc-out b.bad { color: var(--crit); }
+@media (max-width: 760px) { .tc-ctl { grid-template-columns: 1fr 1fr; } .tc-out { grid-column: 1 / -1; } }
+
+/* ---------- оповещение: телефон ---------- */
+.alert-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(32px, 6vw, 96px); align-items: center; margin-top: 56px; }
+.alert-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 16px; }
+.alert-list li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; color: var(--ink-2); font-size: 16px; }
+.alert-list li b { color: var(--ink); display: block; font-family: var(--display); font-size: 17px; }
+.alert-list .n { font-family: var(--mono); font-size: 12px; color: var(--teal); padding-top: 3px; }
+.phone-wrap { display: grid; justify-items: center; gap: 14px; }
+.phone { position: relative; width: 300px; height: 630px; border-radius: 54px; padding: 11px; background: linear-gradient(145deg, #3a4542, #151b19 40%, #2b3532);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 50px 90px -30px rgba(0, 0, 0, .8), 0 0 80px -20px var(--teal-glow); }
+.phone::before, .phone::after { content: ""; position: absolute; width: 3px; border-radius: 2px; background: #2c3633; }
+.phone::before { left: -3px; top: 150px; height: 58px; box-shadow: 0 74px 0 #2c3633; } .phone::after { right: -3px; top: 190px; height: 90px; }
+.ph-scr { position: relative; height: 100%; border-radius: 44px; overflow: hidden; background: #000; color: #fff; font-family: -apple-system, "SF Pro Text", var(--body); }
+.ph-island { position: absolute; z-index: 5; left: 50%; top: 10px; width: 92px; height: 27px; margin-left: -46px; border-radius: 20px; background: #000; }
+.ph-bar { position: absolute; z-index: 4; inset: 0 0 auto; height: 46px; display: flex; justify-content: space-between; align-items: center; padding: 4px 26px 0 30px; font-size: 14px; font-weight: 600; }
+.ph-bar i { display: inline-block; vertical-align: middle; }
+.ph-sig { width: 17px; height: 11px; background: linear-gradient(90deg, currentColor 3px, transparent 3px 4.6px, currentColor 4.6px 7.6px, transparent 7.6px 9.2px, currentColor 9.2px 12.2px, transparent 12.2px 13.8px, currentColor 13.8px);
+  clip-path: polygon(0 70%, 22% 70%, 22% 50%, 45% 50%, 45% 30%, 68% 30%, 68% 0, 100% 0, 100% 100%, 0 100%); margin-right: 6px; }
+.ph-bat { width: 24px; height: 12px; border: 1.5px solid rgba(255, 255, 255, .5); border-radius: 4px; position: relative; }
+.ph-bat::after { content: ""; position: absolute; inset: 1.5px; right: 5px; border-radius: 1.5px; background: #fff; }
+.ph-lock, .ph-chat { position: absolute; inset: 0; transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.ph-lock { background: radial-gradient(120% 70% at 50% 0%, #1f6b55, #0b2a23 55%, #050d0b); text-align: center; padding-top: 70px; }
+.ph-date { font-size: 16px; font-weight: 600; opacity: .85; }
+.ph-time { font-size: 78px; font-weight: 700; line-height: 1; letter-spacing: -.02em; margin-top: 2px; font-family: -apple-system, "SF Pro Display", var(--display); }
+.ph-note { position: absolute; left: 10px; right: 10px; top: 210px; text-align: left; padding: 11px 13px 12px; border-radius: 22px; cursor: pointer;
+  background: rgba(245, 245, 245, .2); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+  opacity: 0; transform: translateY(-24px) scale(.96); transition: opacity .55s var(--ease), transform .7s cubic-bezier(.2, 1.3, .3, 1); }
+.ph-note.in { opacity: 1; transform: none; }
+.ph-note header { display: flex; align-items: center; gap: 8px; font-size: 12.5px; opacity: .85; }
+.ph-note header span { margin-left: auto; }
+.ph-ico { width: 22px; height: 22px; border-radius: 6px; background: #0d1a16 url(img/logo.png?v=2) center / 80% no-repeat; flex: none; }
+.ph-note p { font-size: 14px; line-height: 1.32; margin-top: 6px; }
+.ph-note p b { display: block; }
+.ph-hint { position: absolute; left: 0; right: 0; bottom: 34px; font-size: 12px; opacity: .55; }
+.ph-home { position: absolute; z-index: 6; left: 50%; bottom: 8px; width: 110px; height: 4.5px; margin-left: -55px; border-radius: 3px; background: rgba(255, 255, 255, .75); }
+.ph-chat { opacity: 0; transform: translateY(16px); pointer-events: none; display: flex; flex-direction: column; background: #0f1a17; }
+.phone.chat .ph-chat { opacity: 1; transform: none; pointer-events: auto; } .phone.chat .ph-lock { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.ph-head { display: flex; align-items: center; gap: 10px; padding: 50px 14px 10px; background: rgba(28, 40, 36, .96); border-bottom: 1px solid rgba(255, 255, 255, .06); font-size: 15px; }
+.ph-head .ph-ico { width: 34px; height: 34px; border-radius: 50%; }
+.ph-head small { display: block; font-size: 12px; color: #8fb3a7; font-weight: 400; }
+.ph-head .back { color: #5fd6ad; font-size: 26px; line-height: 1; margin-right: -2px; }
+.ph-msgs { flex: 1; overflow: hidden; padding: 12px 10px 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+  background: radial-gradient(90% 60% at 80% 10%, rgba(60, 201, 156, .08), transparent), #0c1512; }
+.ph-msg { max-width: 92%; padding: 9px 11px 7px; border-radius: 16px 16px 16px 5px; background: #1f2e2a; font-size: 12.8px; line-height: 1.42; }
+.ph-msg q { display: block; quotes: none; margin: 6px 0; padding: 4px 8px; border-left: 3px solid #5fd6ad; border-radius: 4px; background: rgba(95, 214, 173, .1); }
+.ph-msg code { font-family: var(--mono); font-size: 11px; }
+.ph-msg .meta { display: block; margin-top: 6px; color: #8fb3a7; font-size: 11.5px; }
+.ph-msg .foot { display: block; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, .08); color: #b9f0dc; }
+.ph-kb { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; max-width: 92%; }
+.ph-kb button { font: inherit; font-size: 12.3px; color: #fff; background: rgba(40, 60, 54, .9); border: 0; border-radius: 10px; padding: 8px 6px; cursor: pointer; transition: background .2s; }
+.ph-kb button:hover { background: rgba(60, 201, 156, .3); }
+.ph-kb button.wide { grid-column: 1 / -1; }
+.ph-kb[hidden] { display: none; }
+.ph-again { font: inherit; font-size: 13px; color: var(--ink-2); background: none; border: 1px solid var(--line-2); border-radius: 99px; padding: 7px 16px; cursor: pointer; }
+.ph-again:hover { color: var(--ink); border-color: var(--teal); }
+.ph-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); text-align: center; }
+@media (max-width: 860px) { .alert-grid { grid-template-columns: 1fr; } }
+@media (max-width: 360px) { .phone { width: 270px; height: 570px; } .ph-note { top: 190px; } }
+
+/* ---------- чёрный ящик ---------- */
+.bbox { margin-top: 56px; padding: 30px 32px 26px; }
+.bbox-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.bbox-head h3 { font-size: 22px; }
+.bbox-head .mono { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.bbox > p { color: var(--ink-2); margin-top: 8px; max-width: 46em; font-size: 15.5px; }
+.jr { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 0; }
+.jr li { position: relative; display: grid; grid-template-columns: 48px 52px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 11px 14px; border-radius: 12px; font-size: 14.5px; transition: background .4s, color .4s; }
+.jr li + li::before { content: ""; position: absolute; left: 37px; top: -9px; height: 18px; border-left: 2px solid var(--teal-2); transition: border-color .4s; }
+.jr li:nth-child(odd) { background: rgba(255, 255, 255, .02); }
+.jr .no, .jr .tm, .jr .hs { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+.jr .no { color: var(--teal); }
+.jr .hs { text-align: right; white-space: nowrap; }
+.jr .hs em { font-style: normal; color: var(--ink-2); }
+.jr li.new { animation: jrIn .7s var(--ease); }
+@keyframes jrIn { from { opacity: 0; transform: translateY(-6px); background: rgba(60, 201, 156, .18); } }
+.jr li.bad { background: rgba(232, 101, 79, .12); color: #ffd9d1; }
+.jr li.bad .no, .jr li.bad .hs em { color: var(--crit); }
+.jr li.bad::before { border-color: var(--crit) !important; border-left-style: dashed !important; }
+.jr .jwhy { display: block; font-size: 12px; color: var(--crit); margin-top: 2px; }
+.bbox-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 20px; }
+.bbox-st { font-size: 14.5px; color: var(--ink-2); } .bbox-st b { color: var(--teal); } .bbox-st b.bad { color: var(--crit); }
+@media (max-width: 700px) {
+  .bbox { padding: 22px 14px 18px; }
+  .jr li { grid-template-columns: 34px minmax(0, 1fr); gap: 2px 10px; padding: 10px; }
+  .jr li + li::before { left: 25px; }
+  .jr .tm { grid-column: 2; grid-row: 1; } .jr .tx { grid-column: 2; } .jr .hs { grid-column: 2; text-align: left; }
+  .jr .no { grid-row: 1 / span 3; align-self: start; }
+}
+.lite .ph-note { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(60, 80, 74, .92); }
+
 /* ---------- анимации ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .card:hover { transform: translateY(-4px); }
@@ -638,6 +738,66 @@ footer .brand b { font-size: 14px; }
   </div>
 </section>
 
+<section class="sec" id="alert">
+  <div class="wrap">
+    <div class="alert-grid">
+      <div>
+        <div class="sec-head">
+          <span class="kicker rv">Оповещение</span>
+          <h2 class="words">Сообщение приходит само — с причиной и тем, что делать</h2>
+        </div>
+        <ul class="alert-list">
+          <li class="rv"><span class="n">01</span><span><b>Уровень и причина</b>«Требует вмешательства» или «Крайний случай» — и что именно случилось.</span></li>
+          <li class="rv" style="--d:.1s"><span class="n">02</span><span><b>Что делать</b>Конкретная проверка, а не просто «тревога».</span></li>
+          <li class="rv" style="--d:.2s"><span class="n">03</span><span><b>Ответ одной кнопкой</b>«Принято», «Устранено» или «Ложная тревога» — ответ сразу попадает в журнал. Нажмите кнопку на телефоне.</span></li>
+        </ul>
+      </div>
+      <div class="phone-wrap rv">
+        <div class="phone" id="phone" role="img" aria-label="Телефон: сообщение ИГИХ о возможном засоре дымохода">
+          <div class="ph-scr">
+            <div class="ph-island"></div>
+            <div class="ph-bar"><span>18:41</span><span><i class="ph-sig"></i><i class="ph-bat"></i></span></div>
+            <div class="ph-lock">
+              <div class="ph-date">пятница, 6 ноября</div>
+              <div class="ph-time">18:41</div>
+              <div class="ph-note" id="phNote" role="button" tabindex="0" aria-label="Открыть сообщение">
+                <header><i class="ph-ico"></i>ИГИХ<span>сейчас</span></header>
+                <p><b>🟠 Требует вмешательства</b>Частный дом · Засор дымохода? — уверенность средняя</p>
+              </div>
+              <div class="ph-hint">нажмите на уведомление</div>
+            </div>
+            <div class="ph-chat">
+              <div class="ph-head"><span class="back">‹</span><i class="ph-ico"></i><span><b>ИГИХ</b><small>бот объекта</small></span></div>
+              <div class="ph-msgs">
+                <div class="ph-msg"><b>🟠 ТРЕБУЕТ ВМЕШАТЕЛЬСТВА</b><br>🏭 <b>Частный дом</b><br><br>📍 <b>Где:</b> котельная, дымоход<br>⚠️ <b>Что:</b> Засор дымохода? — уверенность средняя
+                  <q>🧯 <b>Что делать:</b> проверить оголовок, газоход котла и дымоход.</q>
+                  <span class="meta">🕐 18:41 · событие <code>C1</code> · запись №16</span><span class="foot" id="phFoot" hidden></span></div>
+                <div class="ph-kb" id="phKb">
+                  <button class="wide" data-a="acc">👀 Принято — занимаюсь</button>
+                  <button data-a="res">✅ Устранено</button><button data-a="fal">❎ Ложная тревога</button>
+                </div>
+              </div>
+            </div>
+            <div class="ph-home"></div>
+          </div>
+        </div>
+        <button class="ph-again" type="button" id="phAgain">↺ Показать снова</button>
+        <span class="ph-cap">так выглядит сообщение · пример</span>
+      </div>
+    </div>
+
+    <div class="card bbox rv" id="bbox">
+      <div class="bbox-head"><h3>«Чёрный ящик»: запись нельзя тихо исправить</h3><span class="mono">пример журнала</span></div>
+      <p>Каждая запись хранит отпечаток (хеш) предыдущей. Если задним числом поменять хотя бы одну, следующая перестаёт с ней сходиться — подделку видно сразу. Это важно при разбирательствах со страховой и обслуживающей организацией.</p>
+      <ol class="jr" id="jr"></ol>
+      <div class="bbox-ctl">
+        <button class="btn" type="button" id="jrFake">Попробовать подделать запись №16</button>
+        <span class="bbox-st" id="jrSt" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="how">
   <div class="wrap">
     <div class="sec-head">
@@ -649,21 +809,28 @@ footer .brand b { font-size: 14px; }
       <div class="timechart-head"><span>Котельная частного дома · пилот</span><span class="mono">схема, не данные</span></div>
       <div class="chart-scroll"><svg viewBox="0 0 900 300" role="img" aria-label="Тяга падает, ветер растёт; ИГИХ предупреждает раньше, чем наступает авария">
         <defs><linearGradient id="gapG" x1="0" x2="1"><stop offset="0" stop-color="#e7a54d" stop-opacity=".22"/><stop offset="1" stop-color="#e8654f" stop-opacity=".12"/></linearGradient></defs>
-        <rect class="gap" x="520" y="18" width="220" height="236" rx="6"/>
+        <rect class="gap" id="tcGap" x="520" y="18" width="220" height="236" rx="6"/>
         <line class="axis" x1="40" y1="254" x2="880" y2="254"/>
         <text class="lbl" x="40" y="284">время →</text>
         <text class="lbl" x="44" y="54">тяга, Па</text>
         <text class="lbl" x="44" y="134">ветер, улица</text>
         <text class="lbl" x="44" y="212">люди</text>
-        <path pathLength="1" class="tr t1" d="M40 68 C210 62 320 70 420 76 S520 100 590 128 S720 200 880 228"/>
-        <path pathLength="1" class="tr t3" d="M40 150 C190 154 300 146 380 136 S520 112 600 108 S760 112 880 114"/>
+        <path class="fc" id="tcF" d="M40 68 L880 68"/>
+        <path pathLength="1" class="tr t1" id="tcA" d="M40 68 C210 62 320 70 420 76 S520 100 590 128 S720 200 880 228"/>
+        <path pathLength="1" class="tr t3" id="tcW3" d="M40 150 C190 154 300 146 380 136 S520 112 600 108 S760 112 880 114"/>
         <path pathLength="1" class="tr t2" d="M40 224 L260 224 L276 210 L292 224 L560 224 L576 212 L592 224 L880 224"/>
-        <line class="mv" x1="520" y1="18" x2="520" y2="254"/>
-        <line class="mk" x1="740" y1="18" x2="740" y2="254"/>
-        <text class="flag" x="528" y="40" fill="#e7a54d">ИГИХ предупреждает</text>
-        <text class="flag" x="748" y="40" fill="#e8654f">авария</text>
-        <text class="lbl" x="528" y="244" fill="#e7a54d">запас времени</text>
+        <line class="mv" id="tcMv" x1="520" y1="18" x2="520" y2="254"/>
+        <line class="mk" id="tcMk" x1="740" y1="18" x2="740" y2="254"/>
+        <text class="flag" id="tcFv" x="528" y="40" fill="#e7a54d">ИГИХ предупреждает</text>
+        <text class="flag" id="tcFk" x="748" y="40" fill="#e8654f">авария</text>
+        <text class="lbl" id="tcGl" x="528" y="244" fill="#e7a54d">запас времени</text>
+        <text class="lbl" id="tcFl" x="876" y="60" text-anchor="end">прогноз по погоде</text>
       </svg></div>
+      <div class="tc-ctl">
+        <label><span>Ветер на улице</span><input type="range" id="tcInW" min="0" max="100" value="50" aria-label="Сила ветра"><small><i>слабый</i><i>штормовой</i></small></label>
+        <label><span>Засор дымохода</span><input type="range" id="tcInC" min="0" max="100" value="60" aria-label="Степень засора дымохода"><small><i>чисто</i><i>сильный</i></small></label>
+        <p class="tc-out" id="tcOut" aria-live="polite">Подвигайте ползунки: как меняется момент предупреждения и запас времени.</p>
+      </div>
     </div>
     <ol class="steps" id="steps">
       <li class="rv"><span class="mono">01</span><h3>Датчики</h3><p>Тяга дымохода и вентканала, температура дымовых газов и помещения.</p></li>
@@ -800,7 +967,7 @@ footer .brand b { font-size: 14px; }
   const OBJ = [
     { status: ['pilot', 'Пилот'], title: 'Частный дом с газовой котельной',
       text: 'Газовый котёл 50 кВт, горелка с наддувом, САКЗ с клапаном. Датчики ИГИХ в котельной.',
-      img: 'img/boiler.webp', bar: 'частный дом · котельная', cap: 'Приложение ИГИХ: котельная, каждый прибор окрашен своим состоянием',
+      img: 'img/boiler_flue.webp', bar: 'частный дом · котельная', cap: 'Приложение ИГИХ: котельная, каждый прибор окрашен своим состоянием',
       float: ['img/boiler_panel.webp', 'приборы котельной', 356, 455],
       tasks: [['газ', 'Метан и CO: сигнализатор САКЗ, клапан перекрывает газ сам'], ['тяга', 'Тяга дымохода и вентканала, сверка с прогнозом погоды'],
         ['котёл', 'Температура дымовых газов, перегрев, работа горелки'], ['питание', 'Пропадание 230 В, журнал сохраняется на батарее'],
@@ -843,7 +1010,7 @@ footer .brand b { font-size: 14px; }
     { k: '01', t: 'Свои объекты', p: 'Дом, квартира, склад, здание. Добавляются по мере надобности, у каждого свой план и свои приборы.',
       img: 'img/picker.webp', cap: 'Список объектов пользователя с миниатюрами планов', f: ['img/picker_card.webp', 'карточка объекта', 504, 440] },
     { k: '02', t: 'Дом и котельная в объёме', p: 'Каждый прибор окрашен своим состоянием. Щелчок по прибору открывает его карточку с показаниями.',
-      img: 'img/house.webp', cap: 'Дом целиком, у котельной предупреждение', f: ['img/house_panel.webp', 'тревоги и показания', 345, 463] },
+      img: 'img/house_night.webp', cap: 'Дом целиком в ночном режиме, у котельной предупреждение', f: ['img/flue_card.webp', 'карточка прибора', 378, 466] },
     { k: '03', t: 'Обслуживание и закупки', p: 'Сроки по нормативам и паспортам. Что пора заменить, сразу уходит в закупку на согласование.',
       img: 'img/service.webp', cap: 'График обслуживания и текущая закупка', f: ['img/service_panel.webp', 'текущая закупка', 356, 450] },
   ];
@@ -914,6 +1081,130 @@ footer .brand b { font-size: 14px; }
     addEventListener('resize', () => { measure(); onScroll(); });
     setTimeout(onScroll, 800);  // режим lite определяется через ~0,7 с
     render(0);
+  })();
+
+  // ---------- график с ползунками: ветер и засор ----------
+  (() => {
+    const inW = document.getElementById('tcInW'), inC = document.getElementById('tcInC');
+    if (!inW) return;
+    const $ = (id) => document.getElementById(id);
+    const A = $('tcA'), F = $('tcF'), W3 = $('tcW3'), gap = $('tcGap'), mv = $('tcMv'), mk = $('tcMk'), fv = $('tcFv'), fk = $('tcFk'), gl = $('tcGl'), out = $('tcOut');
+    const sig = (z) => 1 / (1 + Math.exp(-z)), X0 = 40, X1 = 880, RED = 200, LEAD = 160;
+    const yF = (x, w) => 68 + 150 * w * sig((x - 600) / 70);           // что объясняет погода
+    const yA = (x, w, c) => Math.min(246, yF(x, w) + 150 * c * sig((x - 470) / 90));  // фактическая тяга
+    const yW = (x, w) => 150 - 80 * w * sig((x - 430) / 70);
+    const path = (f) => { let d = ''; for (let x = X0; x <= X1; x += 10) d += (d ? 'L' : 'M') + x + ' ' + f(x).toFixed(1); return d; };
+    const show = (el, on) => { el.style.display = on ? '' : 'none'; };
+    const draw = () => {
+      const w = inW.value / 100, c = inC.value / 100;
+      A.setAttribute('d', path((x) => yA(x, w, c))); F.setAttribute('d', path((x) => yF(x, w))); $('tcFl').setAttribute('y', (yF(X1, w) - 9).toFixed(0)); show($('tcFl'), c > 0.05); W3.setAttribute('d', path((x) => yW(x, w)));
+      let xc = null, xw = null, xa = null;
+      for (let x = X0; x <= X1; x += 2) {
+        if (xc === null && yA(x, w, c) - yF(x, w) >= 14) xc = x;
+        if (xw === null && yF(x + LEAD, w) >= RED) xw = x;
+        if (xa === null && yA(x, w, c) >= RED) xa = x;
+      }
+      const warn = [xc, xw].filter((v) => v !== null).sort((a, b) => a - b)[0];
+      const hasW = warn !== undefined && (xa === null || warn < xa);
+      show(mv, hasW); show(fv, hasW); show(mk, xa !== null); show(fk, xa !== null);
+      show(gap, hasW && xa !== null); show(gl, hasW && xa !== null);
+      if (hasW) { mv.setAttribute('x1', warn); mv.setAttribute('x2', warn); fv.setAttribute('x', Math.min(warn + 8, 700)); }
+      if (xa !== null) { mk.setAttribute('x1', xa); mk.setAttribute('x2', xa); fk.setAttribute('x', Math.min(xa + 8, 820)); }
+      if (hasW && xa !== null) { gap.setAttribute('x', warn); gap.setAttribute('width', xa - warn); gl.setAttribute('x', warn + 8); }
+      const why = xc !== null && (xw === null || xc <= xw) ? 'тяга ниже прогноза по погоде — похоже на засор' : 'прогноз ветра: тяга может опрокинуться';
+      out.innerHTML = !hasW && xa === null ? '<b class="ok">Тяга совпадает с прогнозом</b> — сообщений нет.'
+        : hasW && xa !== null ? '<b>ИГИХ предупреждает раньше аварии</b>: ' + why + '. Есть время проверить и устранить.'
+        : hasW ? '<b>Предупреждение есть</b>: ' + why + '. До опасной границы тяга не дошла.'
+        : '<b class="bad">Резкий отказ</b> — предупредить заранее нечем, срабатывает защита.';
+    };
+    inW.addEventListener('input', draw); inC.addEventListener('input', draw);
+    draw();
+  })();
+
+  // ---------- телефон: уведомление → сообщение → ответ ----------
+  const journalAdd = [];
+  (() => {
+    const ph = document.getElementById('phone');
+    if (!ph) return;
+    const note = document.getElementById('phNote'), kb = document.getElementById('phKb'), foot = document.getElementById('phFoot');
+    const still = () => reduce || root.classList.contains('lite');
+    let tm = [];
+    const open = () => { tm.forEach(clearTimeout); ph.classList.add('chat'); };
+    const play = () => {
+      tm.forEach(clearTimeout); tm = [];
+      ph.classList.remove('chat'); note.classList.remove('in'); kb.hidden = false; foot.hidden = true;
+      if (still()) { note.classList.add('in'); ph.classList.add('chat'); return; }
+      tm.push(setTimeout(() => note.classList.add('in'), 700), setTimeout(open, 3600));
+    };
+    note.addEventListener('click', open);
+    note.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    const ACT = { acc: ['👀 Принял: вы, 18:42', 'Владелец: «Принято — занимаюсь»'], res: ['✅ Устранил: вы, 18:42', 'Владелец: «Устранено»'],
+      fal: ['❎ Ложная тревога, отметил: вы, 18:42', 'Владелец: «Ложная тревога»'] };
+    kb.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      const [f, j] = ACT[b.dataset.a];
+      foot.textContent = f; foot.hidden = false; kb.hidden = true;
+      journalAdd.forEach((fn) => fn('18:42', j));
+    });
+    document.getElementById('phAgain').addEventListener('click', play);
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { io.disconnect(); play(); } }, { threshold: 0.45 });
+      io.observe(ph);
+    } else play();
+  })();
+
+  // ---------- чёрный ящик: цепочка хешей ----------
+  (() => {
+    const ol = document.getElementById('jr');
+    if (!ol) return;
+    const btn = document.getElementById('jrFake'), st = document.getElementById('jrSt');
+    const rows = [[12, '17:30', 'Узел датчиков на связи'], [13, '18:02', 'Горелка включилась'], [14, '18:15', 'Прогноз погоды обновлён'],
+      [15, '18:38', 'Тяга дымохода ниже прогноза по погоде'], [16, '18:41', 'C1 «Засор дымохода?» — требует вмешательства'],
+      [17, '18:41', 'Отправлены SMS и сообщение в мессенджер']].map(([n, t, x]) => ({ n, t, x }));
+    const FAKE = 'Тяга в норме, событий нет', ORIG = rows[4].x;
+    const fnv = (s) => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); };
+    const sha = async (s) => {
+      try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].slice(0, 4).map((v) => v.toString(16).padStart(2, '0')).join(''); }
+      catch (e) { return fnv(s); }
+    };
+    const body = (r) => r.n + '|' + r.t + '|' + r.x + '|' + r.prev;
+    let fake = false, busy = false;
+    const render = (fresh) => {
+      let broken = -1;
+      ol.innerHTML = rows.map((r, i) => {
+        let why = '';
+        if (r.bad === 'edit') why = 'запись изменена, отпечаток пересчитан';
+        if (r.bad === 'link') why = 'хранит отпечаток прежней записи №' + rows[i - 1].n + ' — не сходится';
+        if (why && broken < 0) broken = i;
+        return `<li class="${why ? 'bad' : ''}${fresh === i ? ' new' : ''}"><span class="no">№${r.n}</span><span class="tm">${r.t}</span>` +
+          `<span class="tx">${r.x}${why ? `<span class="jwhy">${why}</span>` : ''}</span><span class="hs">← ${r.prev} · <em>${r.h}</em></span></li>`;
+      }).join('');
+      st.innerHTML = fake ? '<b class="bad">Цепочка разорвана после записи №16</b> — подделку видно без экспертизы.' : '<b>Цепочка сходится</b>: все ' + rows.length + ' записей подлинные.';
+      btn.textContent = fake ? 'Вернуть как было' : 'Попробовать подделать запись №16';
+    };
+    const build = async () => {  // честная цепочка
+      let prev = '00000000';
+      for (const r of rows) { r.prev = prev; r.bad = ''; r.h = await sha(body(r)); prev = r.h; }
+    };
+    const add = async (t, x) => {
+      if (rows.length > 7) return;
+      const r = { n: rows[rows.length - 1].n + 1, t, x, prev: rows[rows.length - 1].h, bad: '' };
+      r.h = await sha(body(r)); rows.push(r);
+      if (fake) { r.prev = rows[rows.length - 2].h; r.h = await sha(body(r)); }
+      render(rows.length - 1);
+    };
+    journalAdd.push(add);
+    btn.addEventListener('click', async () => {
+      if (busy) return; busy = true;
+      fake = !fake;
+      const r = rows[4];
+      if (fake) {
+        r.x = FAKE; r.h = await sha(body(r)); r.bad = 'edit';
+        for (let i = 5; i < rows.length; i++) rows[i].bad = i === 5 ? 'link' : '';
+      } else { r.x = ORIG; await build(); }
+      render(); busy = false;
+    });
+    build().then(() => render());
   })();
 
   // ---------- заголовки по словам ----------
