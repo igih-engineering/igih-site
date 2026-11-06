@@ -132,6 +132,10 @@ p { margin: 0; }
   .hero-logo { width: 68px; height: 68px; margin-bottom: 14px; }
 }
 .hero h1 { font-weight: 800; font-size: clamp(42px, 8.2vw, 112px); line-height: .98; letter-spacing: -.045em; margin: 22px auto 0; max-width: 11.5em; }
+.hero .slogan { margin: 22px auto 0; font-family: var(--display); font-weight: 700; font-size: clamp(19px, 2.3vw, 30px); letter-spacing: -.015em; color: var(--teal); }
+.hero .slogan + .lead { margin-top: 18px; }
+.foot-slogan { color: var(--teal); }
+.sec .intro.impl { margin-top: 40px; max-width: 46em; }
 .hero .lead { margin: 28px auto 0; max-width: 40em; font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-2); line-height: 1.6; }
 .hero-acts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 38px; }
 .stage-wrap { perspective: 1600px; margin-top: 84px; padding-bottom: 40px; }
@@ -610,7 +614,8 @@ footer .brand b { font-size: 14px; }
     <div class="hero-logo" aria-hidden="true"><div class="ring-w"><img class="ring" src="img/logo_ring.webp" width="224" height="224" alt=""></div><img class="flame" src="img/logo_flame.webp" width="224" height="224" alt=""></div>
     <span class="kicker rv" style="--d:.5s">ООО «ИГИХ Инжиниринг»</span>
     <h1 class="words" style="--d:.75s">Платформа <span class="grad">предиктивной</span> безопасности</h1>
-    <p class="lead rv" style="--d:1.1s">Глобальная экосистема интернета вещей с искусственным интеллектом (AIoT) упреждающего контроля и предотвращения катастрофических рисков на объектах большой стоимости.</p>
+    <p class="slogan rv" style="--d:1s">Безопасность настоящего — предсказуемое будущее</p>
+    <p class="lead rv" style="--d:1.2s">Глобальная экосистема интернета вещей с искусственным интеллектом (AIoT) упреждающего контроля и предотвращения катастрофических рисков на объектах большой стоимости.</p>
     <div class="hero-acts rv" style="--d:1.25s">
       <a class="btn primary" href="#objects">Посмотреть объекты <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       <a class="btn" href="#status">Статус и инвестиции</a>
@@ -640,7 +645,7 @@ footer .brand b { font-size: 14px; }
     <div class="sec-head">
       <span class="kicker rv">01 · Потребность</span>
       <h2 class="words">Владельцу нужно знать заранее, что с объектом всё в порядке</h2>
-      <p class="intro rv">С этим запросом приходят владельцы домов, управляющие зданиями и главные инженеры.</p>
+      <p class="intro rv">С этим запросом приходят владельцы домов, управляющие зданиями и главные инженеры: защитить объект от аварий, пожаров, простоев и санкций надзорных органов.</p>
     </div>
     <div class="needs">
       <article class="card need rv"><span class="mono">спокойствие</span><q>Знать, что на объекте всё нормально, даже когда меня там нет</q><p>Дом, склад или здание под присмотром круглые сутки.</p></article>
@@ -686,7 +691,7 @@ footer .brand b { font-size: 14px; }
     <div class="sec-head center">
       <span class="kicker rv">03 · Решение</span>
       <h2 class="words">Одна система, которая видит оборудование, людей и погоду вместе</h2>
-      <p class="intro rv">ИГИХ сводит показания приборов, действия людей и прогноз погоды в одну картину объекта и замечает опасное сочетание причин до того, как оно приведёт к аварии.</p>
+      <p class="intro rv">ИГИХ прогнозирует скрытые аварии, пожары и критический износ оборудования до того, как они проявятся. Платформа сводит показания приборов, действия людей и прогноз погоды в одну картину объекта и замечает опасное сочетание причин.</p>
     </div>
     <div class="solution">
       <div class="orbit rv">
@@ -720,6 +725,7 @@ footer .brand b { font-size: 14px; }
       <div class="bridge-row rv" style="--d:0.12s"><div class="from"><b>было</b>Несколько систем, и каждая видит только своё</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Оборудование, люди и погода в одной картине</div></div>
       <div class="bridge-row rv" style="--d:0.18s"><div class="from"><b>было</b>Нечем доказать, что произошло</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Журнал событий: запись нельзя изменить или удалить</div></div>
     </div>
+    <p class="intro rv impl"><b>Гибкость внедрения.</b> Ставится как самостоятельный комплекс «под ключ» или поверх уже установленного оборудования: объединяет разрозненные системы в одну и продлевает жизнь существующему оборудованию — в том числе зарубежному, которое сложно заменить в условиях импортозамещения.</p>
   </div>
 </section>
 
@@ -918,7 +924,7 @@ footer .brand b { font-size: 14px; }
     <div class="sec-head">
       <span class="kicker rv">Бизнес-модель и рынок</span>
       <h2 class="words">Стоимость комплекса или подписка</h2>
-      <p class="intro rv">Целевые рынки — страны БРИКС:</p>
+      <p class="intro rv">Целевые рынки — критически важные объекты стран БРИКС:</p>
     </div>
     <div class="markets rv"><span>Промышленность</span><span>Центры обработки данных</span><span>Ритейл</span><span>Беспилотная авиация</span></div>
     <div class="prices">
@@ -950,7 +956,7 @@ footer .brand b { font-size: 14px; }
         <li>Сборка первых 5 физических образцов бронекапсул «Чёрного ящика»</li>
         <li>Объекты: склад, здание, ЖК</li></ul></article>
     </div>
-    <div class="ask rv"><div class="big ask-q">Стоимость<br>по запросу</div><p><b>Запрос к инвестору:</b> перевод ТЗ в код и сборка первых 5 образцов «Чёрного ящика». Сейчас удобная точка для входа инвестора.</p></div>
+    <div class="ask rv"><div class="big ask-q">Стоимость<br>по запросу</div><p><b>Запрос к инвестору:</b> перевод ТЗ в код и сборка первых 5 образцов «Чёрного ящика». Сейчас удобная точка для входа инвестора. Полное техническое задание и инвест-пакет — по запросу: напишите «ИНВЕСТ» в Telegram.</p></div>
   </div>
 </section>
 
@@ -984,7 +990,7 @@ footer .brand b { font-size: 14px; }
   </div>
 </section>
 
-<footer><div class="wrap"><a class="brand" href="#top"><img src="img/logo.png?v=2" alt=""><b>ИГИХ</b></a><span>© 2026 ООО «ИГИХ Инжиниринг»</span><span>Демо-версия · данные пилота на 02.11.2026</span></div></footer>
+<footer><div class="wrap"><a class="brand" href="#top"><img src="img/logo.png?v=2" alt=""><b>ИГИХ</b></a><span>© 2026 ООО «ИГИХ Инжиниринг»</span><span class="foot-slogan">Безопасность настоящего — предсказуемое будущее</span><span>Демо-версия · данные пилота на 02.11.2026</span></div></footer>
 
 <dialog class="lb" id="lb" aria-label="Просмотр фото"><button class="lb-x" type="button" aria-label="Закрыть">×</button><img alt=""><p></p></dialog>
 
