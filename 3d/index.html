@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ИГИХ · дом в объёме</title><meta name="robots" content="noindex">
+<style>
+:root{--c-room-sage:#7fae8f;--c-room-olive:#c9b46a;--c-room-peach:#e0a07a;--c-room-blue:#8aa6d6;--c-room-aqua:#6fc3c8;--c-room-concrete:#9a9d9f;--c-room-sand:#c9b48f;--c-wood:#b98a5a;--c-tile:#cfd6d8;--c-concrete:#a3a7a9;--c-stone:#b9b2a5;--c-oak:#b49b7b;--c-walnut:#756558;--c-white:#e1e6e7;--c-steel:#9cabb4;--c-dark:#35414a;--c-sofa:#647d85;--c-blanket:#8d7974;--c-pillow:#ded8cb;--c-rug:#7d8385;--c-cloth:#b8afa0;--c-plant:#3f9a52;--c-pot:#9b8272;--c-red:#c8352f;--c-tire:#2b2e31;--c-lamp:#ffd77a;--c-screen:#101418;--c-car-bmw:#8cabb5;--c-car-merc:#66716a;--c-car-audi:#677b90;--c-car-lada:#b5b9c0;--c-glass:#9fc4dc;--c-headlight:#fff6c8;--c-blinker:#ff9d1a;--bg:#e9e3d6;--panel:#f6f1e6;--surface:#fbf8f1;--surface-2:#e6dfcf;--line:#d2c8b4;--text:#14231b;--text-2:#344a3f;--text-3:#6c7b70;--accent:#0f8a60;--accent-2:#0a6447;--accent-ink:#ffffff;--accent-soft:#d3ead9;--st-ok:#128a57;--st-warn:#d68800;--st-crit:#d1281f;--st-info:#2c6fc7;--st-none:#8e948c;--st-ok-soft:#d2ecdc;--st-warn-soft:#f8e2b0;--st-crit-soft:#f6cfc9;--st-info-soft:#d3e2f5;--st-none-soft:#e3ded3;--floor:#efe6d2;--floor-grid:#d9cdb4;--wall-a:#e4dccb;--wall-b:#d3c9b4;--wall-edge:#a99c83;--dev-top:#fdfbf6;--dev-a:#e8e1d2;--dev-b:#d0c7b4;--shade:rgba(60, 45, 20, 0.16);--tint-k:26%;--mat-k:100%;--shadow:0 8px 28px rgba(60, 45, 20, 0.12);--shadow-hi:0 14px 40px rgba(60, 45, 20, 0.20);--c-boiler:#536c7d;--ease:cubic-bezier(.22, .8, .24, 1);--t:.45s;color-scheme:light}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);font-family:'Segoe UI',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+#host{position:absolute;inset:0}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.house-3d canvas{display:block;width:100%;height:100%;cursor:grab}
+.house-3d.is-drag canvas{cursor:grabbing}
+.three-message{position:absolute;inset:0;display:grid;place-content:center;padding:35px;color:var(--text-2);background:var(--bg);text-align:center;font-size:14px}
+.house-labels{position:absolute;inset:0;pointer-events:none}
+.house-room-label{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;display:flex;align-items:center;gap:8px;white-space:nowrap;padding:7px 12px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:0 3px 10px var(--shade);font:600 12px 'Segoe UI',sans-serif;cursor:pointer}
+.house-room-label i{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 0 2px var(--panel)}
+.house-room-label.st-warn{background:var(--st-warn-soft);border-color:var(--st-warn)}
+.house-room-label.is-hover{border-color:var(--accent)}
+.house-3d.is-drag .house-room-label{pointer-events:none}
+.ctl{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;z-index:3}
+.ctl button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font:600 18px/1 'Segoe UI',sans-serif;cursor:pointer;box-shadow:0 3px 10px var(--shade)}
+.ctl button:hover{border-color:var(--accent)}
+.tip{position:absolute;left:14px;bottom:14px;z-index:3;padding:8px 12px;border-radius:12px;background:var(--panel);border:1px solid var(--line);color:var(--text-2);font-size:12.5px;box-shadow:0 3px 10px var(--shade);transition:opacity .5s}
+.tip.off{opacity:0;pointer-events:none}
+@media (max-width:560px){.house-room-label{padding:5px 9px;font-size:11px}.tip{display:none}}
+</style></head><body>
+<div id="host"></div>
+<div class="tip" id="tip">Перетащите, чтобы повернуть · нажмите на комнату</div>
+<div class="ctl"><button type="button" id="l" aria-label="Повернуть влево">↺</button><button type="button" id="c" aria-label="Исходный вид">⌂</button><button type="button" id="r" aria-label="Повернуть вправо">↻</button></div>
+<script>
+window.IGIH={app:{state:{floor:0}},toys:{state:{tv:false,ambient:false},car:()=>null},tvSlides:{draw(){}}};
+</script>
+<script src="data.js"></script><script src="theme.js"></script><script src="models.js"></script><script src="house3d.js"></script>
+<script>
+(()=>{
+  const H=window.IGIH_HOUSE,SHOT={boiler:['boiler','Котельная: каждый прибор окрашен своим состоянием'],kitchen:['room_kitchen','Кухня'],living:['room_living','Гостиная'],bedroom:['room_bedroom','Спальня'],bath:['room_bath','Санузел']};
+  const open=id=>{const s=SHOT[id];if(!s)return;try{parent.igihOpenShot('img/'+s[0]+'@2x.webp','Приложение ИГИХ · '+s[1],s[1]);}catch(e){}};
+  const scene=IGIH.house3d.create({rooms:H.rooms},H.levels,open,{fit:1.06,shiftY:.1});
+  document.getElementById('host').append(scene);
+  const tip=document.getElementById('tip');
+  addEventListener('pointerdown',()=>setTimeout(()=>tip.classList.add('off'),1200),{once:true});
+  document.getElementById('l').onclick=()=>scene.turn&&scene.turn(Math.PI/4);
+  document.getElementById('r').onclick=()=>scene.turn&&scene.turn(-Math.PI/4);
+  document.getElementById('c').onclick=()=>scene.reset&&scene.reset();
+})();
+</script>
+</body></html>

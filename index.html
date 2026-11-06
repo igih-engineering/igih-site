@@ -57,7 +57,7 @@ p { margin: 0; }
 .links::-webkit-scrollbar { display: none; }
 .links a { color: var(--ink-2); text-decoration: none; font-size: 14px; padding: 8px 12px; border-radius: 99px; white-space: nowrap; transition: color .25s, background-color .25s; }
 .links a:hover, .links a.on { color: var(--ink); background: rgba(255, 255, 255, .06); }
-.cta { flex: none; text-decoration: none; color: #fff; font-weight: 600; font-size: 14px; padding: 9px 18px; border-radius: 99px;
+.cta { flex: none; border: 0; font-family: inherit; cursor: pointer; text-decoration: none; color: #fff; font-weight: 600; font-size: 14px; padding: 9px 18px; border-radius: 99px;
   background: linear-gradient(180deg, var(--teal-3), var(--teal-2)); box-shadow: 0 6px 22px -8px var(--teal-glow), inset 0 1px 0 rgba(255,255,255,.18);
   transition: transform .3s var(--ease), box-shadow .3s; }
 .cta:hover { transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(60, 201, 156, .45), inset 0 1px 0 rgba(255,255,255,.2); }
@@ -101,6 +101,17 @@ p { margin: 0; }
 .zv { position: relative; aspect-ratio: 1440 / 900; overflow: hidden; background: #efe9dc; contain: paint; }
 .win .zv > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; will-change: transform, opacity; }
 .zv .z1 { opacity: 0; }
+.d3 { position: relative; aspect-ratio: 16 / 9; background: #ebe5d8; overflow: hidden; }
+.win .d3 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; transition: opacity .6s; }
+.d3 iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; transition: opacity .8s var(--ease); }
+.d3.on iframe { opacity: 1; } .d3.on > img { opacity: 0; pointer-events: none; }
+.d3win { margin-top: 30px; }
+.d3go { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; white-space: nowrap; }
+@media (max-width: 560px) { .d3go { bottom: 14px; padding: 11px 18px; font-size: 14px; } }
+.d3go small { font-weight: 500; opacity: .7; margin-left: 6px; }
+.d3go[hidden] { display: none; }
+.d3go:hover { transform: translateX(-50%) translateY(-2px); }
+@media (max-width: 900px) { .d3 { aspect-ratio: 4 / 3; } }
 .zv::after { content: ""; position: absolute; inset: 0; background: #0b1512; opacity: var(--dim, 0); pointer-events: none; }
 .zcard { position: absolute; z-index: 2; opacity: 0; color: #1d2925; background: #fbf8f1; border: 1px solid #e3dccb; border-radius: 14px;
   box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .45); font-size: 13px; line-height: 1.4; will-change: transform, opacity; }
@@ -181,7 +192,6 @@ p { margin: 0; }
   overflow: hidden; transition: transform .5s var(--ease), border-color .4s; }
 .card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s;
   background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(60, 201, 156, .13), transparent 45%); }
-.card:hover { border-color: var(--line-2); }
 .card:hover::after { opacity: 1; }
 
 /* проблема */
@@ -325,7 +335,8 @@ p { margin: 0; }
 
 /* бизнес-модель */
 .markets { margin-top: 36px; display: flex; gap: 10px; flex-wrap: wrap; }
-.markets span { padding: 9px 16px; border-radius: 99px; border: 1px solid var(--line-2); font-size: 15px; color: var(--ink-2); }
+.markets span { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border-radius: 8px; background: rgba(255, 255, 255, .045); font-size: 15px; color: var(--ink-2); cursor: default; }
+.markets span::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--teal); opacity: .8; }
 .prices { margin-top: 30px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .price { padding: 40px 36px; }
 .price .mono { font-size: 12px; letter-spacing: .14em; color: var(--ink-3); }
@@ -383,6 +394,34 @@ footer .brand b { font-size: 14px; }
 .lb-x { position: fixed; top: max(16px, env(safe-area-inset-top, 0px)); right: 16px; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line-2);
   background: rgba(255,255,255,.08); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
 .lb[open] { animation: lbIn .35s var(--ease); }
+.lb.big img { cursor: grab; user-select: none; -webkit-user-drag: none; }
+.lb.big.drag img { cursor: grabbing; }
+.cm { width: min(560px, calc(100vw - 32px)); border: 1px solid var(--line-2); border-radius: 24px; padding: 30px 28px 24px; color: var(--ink);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel)); box-shadow: 0 40px 120px -30px rgba(0, 0, 0, .8); }
+.cm[open] { animation: lbIn .35s var(--ease); }
+.cm::backdrop { background: rgba(3, 8, 7, .8); backdrop-filter: blur(6px); }
+.cm h3 { margin: 10px 0 4px; font-family: var(--display); font-size: 28px; letter-spacing: -.02em; }
+.cm-sub { margin: 0 0 18px; color: var(--ink-2); font-size: 15px; }
+.cm-x { position: absolute; top: 14px; right: 14px; }
+.cm-row { display: grid; grid-template-columns: 1fr auto auto; grid-template-areas: "l l l" "v c g"; align-items: center; gap: 4px 10px; padding: 14px 0; border-top: 1px solid var(--line); }
+.cm-row span { grid-area: l; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.cm-row b { grid-area: v; font-family: var(--display); font-size: 18px; overflow-wrap: anywhere; }
+.cm-row .copy { grid-area: c; margin: 0; }
+.cm-go { grid-area: g; font-size: 13px; padding: 7px 14px; border-radius: 99px; background: var(--teal); color: #04140f; font-weight: 600; text-decoration: none; }
+@media (max-width: 480px) { .cm-row { grid-template-columns: 1fr auto; grid-template-areas: "l l" "v v" "c g"; } .cm-row .copy { justify-self: start; } }
+.lite .cm::backdrop { backdrop-filter: none; }
+/* комнаты на плане в первом экране */
+.hs-wrap { position: relative; }
+.hs { position: absolute; inset: 0; pointer-events: none; }
+.hs button { position: absolute; transform: translate(-50%, -50%); width: 7.4%; height: 4.4%; min-width: 34px; min-height: 22px; padding: 0; border: 0; border-radius: 99px;
+  background: transparent; cursor: zoom-in; pointer-events: auto; }
+.hs button::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; border: 1.5px solid var(--teal); opacity: 0; transition: opacity .3s; }
+.hs button:hover::after, .hs button:focus-visible::after { opacity: 1; }
+.hs.hint button::after { animation: hsHint 2.4s ease-in-out 2; }
+@keyframes hsHint { 0%, 100% { opacity: 0; } 50% { opacity: .9; } }
+.zsteps li[role="button"] { cursor: pointer; }
+.zsteps li[role="button"]:hover { opacity: .75; }
+.zsteps li.on[role="button"]:hover { opacity: 1; }
 @keyframes lbIn { from { opacity: 0; transform: scale(.97); } }
 
 /* ---------- график: ползунки ---------- */
@@ -503,10 +542,8 @@ footer .brand b { font-size: 14px; }
 
 /* ---------- анимации ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .card:hover { transform: translateY(-4px); }
   .js .rv { opacity: 0; transform: translateY(34px); filter: blur(6px); transition: opacity 1s var(--ease), transform 1.1s var(--ease), filter 1s var(--ease); transition-delay: var(--d, 0s); }
   .js .rv.in { opacity: 1; transform: none; filter: none; }
-  .js .card.rv.in:hover { transform: translateY(-4px); transition-delay: 0s; }
   .js .words .w { display: inline-block; opacity: 0; transform: translateY(.45em); filter: blur(8px);
     transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: calc(var(--i) * 55ms + var(--d, 0s)); }
   .js .words.in .w { opacity: 1; transform: none; filter: none; }
@@ -592,7 +629,7 @@ footer .brand b { font-size: 14px; }
 .chart-scroll { overflow-x: auto; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
 @media (max-width: 700px) { .chart-scroll svg { min-width: 680px; } .timechart-head::after { content: "листайте →"; font-family: var(--mono); font-size: 11px; color: var(--ink-3); } }
 </style>
-<script>/* старый браузер без WebP: подменить снимок на JPEG */document.addEventListener('error',function(e){var t=e.target;if(t.tagName==='IMG'&&/\.webp$/.test(t.src)){t.src=t.src.replace(/\.webp$/,/logo_/.test(t.src)?'.png':'.jpg');}},true);</script>
+<script>/* старый браузер без WebP: подменить снимок на JPEG */document.addEventListener('error',function(e){var t=e.target;if(t.tagName==='IMG'&&/\.webp$/.test(t.currentSrc||t.src)){t.removeAttribute('srcset');t.src=t.src.replace(/\.webp$/,/logo_/.test(t.src)?'.png':'.jpg');}},true);</script>
 </head>
 <body>
 
@@ -603,7 +640,7 @@ footer .brand b { font-size: 14px; }
       <a href="#need">Потребность</a><a href="#problem">Боль</a><a href="#solution">Решение</a><a href="#how">Как работает</a><a href="#objects">Объекты</a>
       <a href="#app">Приложение</a><a href="#tech">Технологии</a><a href="#business">Модель</a><a href="#status">Статус</a>
     </div>
-    <a class="cta" href="#team">Связаться</a>
+    <button class="cta" type="button" data-contact>Связаться</button>
   </div>
   <div class="progress" aria-hidden="true"></div>
 </nav>
@@ -624,10 +661,10 @@ footer .brand b { font-size: 14px; }
   <div class="stage-wrap wrap">
     <div class="stage" id="stage">
       <div class="win rv" style="--d:1.35s"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · частный дом · пилот</span></div>
-        <img src="img/house.webp" width="1440" height="900" fetchpriority="high" alt="Приложение ИГИХ: частный дом целиком, у котельной предупреждение" data-cap="Приложение ИГИХ: частный дом целиком, у котельной предупреждение"></div>
-      <figure class="float rv" style="--d:1.6s"><img src="img/house_panel.webp" width="345" height="463" alt="Тревоги и показания датчиков" data-cap="Тревоги и показания датчиков"><figcaption>показания крупно</figcaption></figure>
+        <div class="hs-wrap"><img src="img/house.webp" srcset="img/house.webp 1440w, img/house@2x.webp 2880w" sizes="(max-width: 900px) 100vw, 1100px" width="1440" height="900" fetchpriority="high" alt="Приложение ИГИХ: частный дом целиком, у котельной предупреждение" data-cap="Приложение ИГИХ: частный дом целиком, у котельной предупреждение"><div class="hs" id="hs"></div></div></div>
+      <figure class="float rv" style="--d:1.6s"><img src="img/house_panel.webp" srcset="img/house_panel.webp 345w, img/house_panel@2x.webp 690w" sizes="345px" width="345" height="463" alt="Тревоги и показания датчиков" data-cap="Тревоги и показания датчиков"><figcaption>показания крупно</figcaption></figure>
     </div>
-    <p class="zoom-tip">Нажмите на любой снимок, чтобы открыть его на весь экран. Повторное нажатие — исходный размер.</p>
+    <p class="zoom-tip">Нажмите на комнату на плане или на любой снимок — он откроется на весь экран. Ещё одно нажатие увеличит место, по которому нажали.</p>
   </div>
 </header>
 
@@ -741,23 +778,39 @@ footer .brand b { font-size: 14px; }
     <div class="zs">
       <div class="wrap zs-in">
         <ol class="zsteps" id="zsteps">
-          <li class="on"><span class="mono">01</span><h3>Весь дом</h3><p>Одна комната отмечена жёлтым — остальное в норме.</p></li>
-          <li><span class="mono">02</span><h3>Котельная</h3><p>Каждый прибор окрашен своим состоянием.</p></li>
-          <li><span class="mono">03</span><h3>Дымоход</h3><p>Показания датчиков рядом с прибором.</p></li>
-          <li><span class="mono">04</span><h3>Причина</h3><p>Не просто «тревога», а что случилось и что проверить.</p></li>
+          <li class="on" tabindex="0" role="button"><span class="mono">01</span><h3>Весь дом</h3><p>Одна комната отмечена жёлтым — остальное в норме.</p></li>
+          <li tabindex="0" role="button"><span class="mono">02</span><h3>Котельная</h3><p>Каждый прибор окрашен своим состоянием.</p></li>
+          <li tabindex="0" role="button"><span class="mono">03</span><h3>Дымоход</h3><p>Показания датчиков рядом с прибором.</p></li>
+          <li tabindex="0" role="button"><span class="mono">04</span><h3>Причина</h3><p>Не просто «тревога», а что случилось и что проверить.</p></li>
         </ol>
         <div class="win"><div class="win-bar"><i></i><i></i><i></i><span id="zbar">ИГИХ · частный дом · весь дом</span></div>
           <div class="zv" id="zv">
-            <img class="z0" src="img/house.webp" width="1440" height="900" alt="Приложение ИГИХ: частный дом целиком" loading="lazy">
-            <img class="z1" src="img/boiler.webp" width="1440" height="900" alt="Приложение ИГИХ: котельная" loading="lazy">
+            <img class="z0" src="img/house.webp" srcset="img/house.webp 1440w, img/house@2x.webp 2880w" sizes="(max-width: 900px) 200vw, 2200px" width="1440" height="900" alt="Приложение ИГИХ: частный дом целиком" loading="lazy">
+            <img class="z1" src="img/boiler.webp" srcset="img/boiler.webp 1440w, img/boiler@2x.webp 2880w" sizes="(max-width: 900px) 200vw, 2200px" width="1440" height="900" alt="Приложение ИГИХ: котельная" loading="lazy">
             <div class="zcard zread" aria-label="Показания дымохода"><b>Дымоход <span class="tag">Внимание</span></b>
               <dl><div class="hot"><dt>Тяга дымохода</dt><dd>8,3 Па</dd></div><div><dt>Тяга вентканала</dt><dd>2,4 Па</dd></div>
-              <div><dt>Температура газов</dt><dd>165 °C</dd></div><div><dt>На улице</dt><dd>−5,9 °C</dd></div></dl></div>
+              <div><dt>Температура газов</dt><dd>166 °C</dd></div><div><dt>На улице</dt><dd>−5,8 °C</dd></div></dl></div>
             <div class="zcard zalert" role="note"><b><span class="tag">C1</span>Засор дымохода?</b>
               <p>Тяга дымохода ниже прогноза по погоде; вентканал в норме — помещение ни при чём. Проверить оголовок, газоход котла и дымоход.</p>
               <small>только что · то же сообщение приходит в мессенджер</small></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec d3sec" id="d3">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv">В объёме</span>
+      <h2 class="words">Покрутите дом</h2>
+      <p class="intro rv">Та же сцена, что в приложении. Перетащите, чтобы повернуть; наведите на комнату — она приподнимется; нажмите — откроется её вид.</p>
+    </div>
+    <div class="win rv d3win"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · частный дом · объёмный план</span></div>
+      <div class="d3" id="d3box">
+        <img src="img/house.webp" srcset="img/house.webp 1440w, img/house@2x.webp 2880w" sizes="(max-width: 900px) 100vw, 1100px" width="1440" height="900" loading="lazy" alt="План частного дома в приложении ИГИХ" data-cap="Приложение ИГИХ: частный дом целиком">
+        <button class="btn primary d3go" type="button" id="d3go" hidden>Открыть в 3D <small>≈ 0,25 МБ</small></button>
       </div>
     </div>
   </div>
@@ -832,7 +885,7 @@ footer .brand b { font-size: 14px; }
       <p class="intro rv">Обычная система срабатывает на красной линии. ИГИХ сверяет тягу, погоду и действия людей и предупреждает раньше — у владельца появляется запас времени.</p>
     </div>
     <div class="card timechart rv" id="chart">
-      <div class="timechart-head"><span>Котельная частного дома · пилот</span><span class="mono">схема, не данные</span></div>
+      <div class="timechart-head"><span>Котельная частного дома · пилот</span><span class="mono">условный пример</span></div>
       <div class="chart-scroll"><svg viewBox="0 0 900 300" role="img" aria-label="Тяга падает, ветер растёт; ИГИХ предупреждает раньше, чем наступает авария">
         <defs><linearGradient id="gapG" x1="0" x2="1"><stop offset="0" stop-color="#e7a54d" stop-opacity=".22"/><stop offset="1" stop-color="#e8654f" stop-opacity=".12"/></linearGradient></defs>
         <rect class="gap" id="tcGap" x="520" y="18" width="220" height="236" rx="6"/>
@@ -907,7 +960,7 @@ footer .brand b { font-size: 14px; }
         <h3>Протокол «ДНК аварии» (Accident DNA Protocol)</h3><p>Отпечаток аварии сжимается до 64 байт. Вся сеть объектов учится на нём сразу.</p>
         <div class="vis"><div class="dna" id="dna" aria-hidden="true"></div></div></article>
       <article class="card rv" style="--d:.1s"><div class="big">0<small>облака</small></div>
-        <h3>ИИ на борту датчика (Edge AI)</h3><p>Датчики анализируют данные на месте. Работают без интернета и без подведённого питания.</p>
+        <h3>ИИ на борту датчика (Edge AI)</h3><p>Датчики анализируют данные на месте и работают без подведённого питания. При обрыве связи анализ не останавливается: данные уйдут в приложение, когда связь вернётся.</p>
         <div class="vis"><div class="edge"><span>датчик</span>→<span class="on">решение</span><s>облако</s></div></div></article>
       <article class="card rv" style="--d:.2s"><div class="big">0<small>копий ключей</small></div>
         <h3>Кремниевый бункер</h3><p>Защита от вскрытия: при попытке взлома или копирования ключи аппаратно уничтожаются.</p>
@@ -992,6 +1045,12 @@ footer .brand b { font-size: 14px; }
 
 <footer><div class="wrap"><a class="brand" href="#top"><img src="img/logo.png?v=2" alt=""><b>ИГИХ</b></a><span>© 2026 ООО «ИГИХ Инжиниринг»</span><span class="foot-slogan">Безопасность настоящего — предсказуемое будущее</span><span>Демо-версия · данные пилота на 02.11.2026</span></div></footer>
 
+<dialog class="cm" id="cm" aria-label="Связаться с ИГИХ"><button class="lb-x cm-x" type="button" aria-label="Закрыть">×</button>
+  <span class="kicker">Связаться</span><h3>Обсудим ваш объект</h3><p class="cm-sub">Удобнее всего — Telegram. Отвечаем в рабочее время.</p>
+  <div class="cm-row"><span>Telegram</span><b>@Nikandr76</b><button class="copy" data-copy="@Nikandr76">Копировать</button><a class="cm-go" href="https://t.me/Nikandr76" target="_blank" rel="noopener">Написать</a></div>
+  <div class="cm-row"><span>Телефон</span><b>+7 (916) 133-54-75</b><button class="copy" data-copy="+79161335475">Копировать</button><a class="cm-go" href="tel:+79161335475">Позвонить</a></div>
+  <div class="cm-row"><span>Почта</span><b>igih-2026@yandex.ru</b><button class="copy" data-copy="igih-2026@yandex.ru">Копировать</button><a class="cm-go" href="mailto:igih-2026@yandex.ru">Письмо</a></div>
+</dialog>
 <dialog class="lb" id="lb" aria-label="Просмотр фото"><button class="lb-x" type="button" aria-label="Закрыть">×</button><img alt=""><p></p></dialog>
 
 <script>
@@ -1043,11 +1102,13 @@ footer .brand b { font-size: 14px; }
         ['серверная', 'Температура и вентиляция серверной'], ['люди', 'Доступ персонала, действия в нештатной ситуации'], ['погода', 'Ветер и мороз: нагрузка на отопление и вентиляцию']] },
   ];
 
-  const floatFig = (f, extra) => `<figure class="float${extra || ''}"><img src="${f[0]}" width="${f[2]}" height="${f[3]}" alt="${f[1]}" data-cap="${f[1]}"><figcaption>${f[1]}</figcaption></figure>`;
+  const hd = (src, w) => `srcset="${src} ${w}w, ${src.replace('.webp', '@2x.webp')} ${w * 2}w"`;
+  const HS = 'sizes="(max-width: 900px) 100vw, 1100px"';
+  const floatFig = (f, extra) => `<figure class="float${extra || ''}"><img src="${f[0]}" ${hd(f[0], f[2])} sizes="${f[2]}px" width="${f[2]}" height="${f[3]}" alt="${f[1]}" data-cap="${f[1]}"><figcaption>${f[1]}</figcaption></figure>`;
   document.getElementById('cases').innerHTML = OBJ.map((o, i) => `
     <article class="case${i % 2 ? ' flip' : ''}">
       <div class="case-media rv">
-        <div class="win"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · ${o.bar}</span></div><img src="${o.img}" width="1440" height="900" alt="${o.cap}" data-cap="${o.cap}"></div>
+        <div class="win"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · ${o.bar}</span></div><img src="${o.img}" ${hd(o.img, 1440)} ${HS} width="1440" height="900" alt="${o.cap}" data-cap="${o.cap}"></div>
         ${o.float ? floatFig(o.float, ' rv" style="--d:.3s') : ''}
       </div>
       <div class="case-head rv" style="--d:.12s">
@@ -1069,9 +1130,9 @@ footer .brand b { font-size: 14px; }
   document.getElementById('chapters').innerHTML = APP.map((a, i) => `
     <div class="chapter${i ? '' : ' on'}" data-i="${i}">
       <span class="mono">${a.k} / 03</span><h3>${a.t}</h3><p>${a.p}</p>
-      <div class="inline-shot"><div class="win"><div class="win-bar"><i></i><i></i><i></i></div><img src="${a.img}" width="1440" height="900" alt="${a.cap}" data-cap="${a.cap}"></div>${floatFig(a.f)}</div>
+      <div class="inline-shot"><div class="win"><div class="win-bar"><i></i><i></i><i></i></div><img src="${a.img}" ${hd(a.img, 1440)} ${HS} width="1440" height="900" alt="${a.cap}" data-cap="${a.cap}"></div>${floatFig(a.f)}</div>
     </div>`).join('');
-  document.getElementById('pinShots').innerHTML = APP.map((a, i) => `<img src="${a.img}" alt="${a.cap}" data-cap="${a.cap}"${i ? '' : ' class="on"'}>`).join('');
+  document.getElementById('pinShots').innerHTML = APP.map((a, i) => `<img src="${a.img}" ${hd(a.img, 1440)} ${HS} alt="${a.cap}" data-cap="${a.cap}"${i ? '' : ' class="on"'}>`).join('');
   document.getElementById('pinFloats').innerHTML = APP.map((a, i) => floatFig(a.f, i ? '' : ' on')).join('');
   const chapters = [...document.querySelectorAll('.chapter')];
   const pinImgs = [...document.querySelectorAll('#pinShots img')], pinFl = [...document.querySelectorAll('#pinFloats .float')];
@@ -1114,14 +1175,27 @@ footer .brand b { font-size: 14px; }
       if (st !== step) { step = st; steps.forEach((li, j) => li.classList.toggle('on', j === st)); bar.textContent = BARS[st]; }
     };
     const still = () => reduce || root.classList.contains('lite');
-    let raf = 0;
-    const tick = () => {
+    let raf = 0, cur = -1;
+    const tick = () => {  // кадр догоняет прокрутку плавно, без рывков колеса
       raf = 0;
       if (still()) return toStatic();
       const r = zt.getBoundingClientRect(), span = r.height - (innerHeight - 64);
-      if (r.bottom < -200 || r.top > innerHeight + 200) return;
-      render(span > 0 ? cl((64 - r.top) / span) : 1);
+      const tgt = span > 0 ? cl((64 - r.top) / span) : 1;
+      if (r.bottom < -200 || r.top > innerHeight + 200 || cur < 0) { cur = tgt; if (r.bottom < -200 || r.top > innerHeight + 200) return; }
+      cur += (tgt - cur) * 0.18; if (Math.abs(tgt - cur) < 0.0008) cur = tgt;
+      render(cur);
+      if (cur !== tgt) raf = requestAnimationFrame(tick);
     };
+    const GO = [0.1, 0.45, 0.63, 0.92];
+    steps.forEach((li, i) => {
+      const go = () => {
+        if (sec.classList.contains('zstatic')) return;
+        const span = zt.offsetHeight - (innerHeight - 64), top = zt.getBoundingClientRect().top + scrollY;
+        scrollTo({ top: top - 64 + GO[i] * span, behavior: 'smooth' });
+      };
+      li.addEventListener('click', go);
+      li.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
     const toStatic = () => {
       removeEventListener('scroll', onScroll); sec.classList.add('zstatic');
@@ -1384,18 +1458,77 @@ footer .brand b { font-size: 14px; }
   dna.innerHTML = Array.from({ length: 64 }, () => `<span style="--o:${(0.12 + rnd() * 0.88).toFixed(2)}"></span>`).join('');
   if (!reduce) setInterval(() => { const s = dna.children[Math.floor(Math.random() * 64)]; s.style.setProperty('--o', (0.12 + Math.random() * 0.88).toFixed(2)); }, 140);
 
-  // ---------- фото на весь экран ----------
+  // ---------- фото на весь экран: второе нажатие увеличивает место нажатия ----------
   const lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
+  lbImg.draggable = false;
+  const best = (im) => im.dataset.full || (im.srcset ? im.srcset.split(',').pop().trim().split(' ')[0] : '') || im.currentSrc || im.src;
+  const unzoom = () => { lb.classList.remove('big', 'drag'); lbImg.style.width = ''; };
+  const openLb = (src, cap, alt) => { unzoom(); lbImg.src = src; lbImg.alt = alt || cap; lbCap.textContent = cap; if (!lb.open) lb.showModal(); };
+  window.igihOpenShot = openLb;
+  lb.addEventListener('close', unzoom);
+  let drag = null, moved = 0;
+  lbImg.addEventListener('pointerdown', (e) => {
+    moved = 0; if (!lb.classList.contains('big') || e.pointerType === 'touch') return;
+    drag = { x: e.clientX, y: e.clientY, l: lb.scrollLeft, t: lb.scrollTop }; lb.classList.add('drag'); e.preventDefault();
+  });
+  addEventListener('pointermove', (e) => {
+    if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
+    lb.scrollLeft = drag.l - dx; lb.scrollTop = drag.t - dy;
+  });
+  addEventListener('pointerup', () => { drag = null; lb.classList.remove('drag'); });
   document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-contact]')) { e.preventDefault(); document.getElementById('cm').showModal(); return; }
+    const cm = document.getElementById('cm');
+    if (cm.open && (e.target === cm || e.target.closest('.cm-x'))) { cm.close(); return; }
     const im = e.target.closest('.win img, .float img, .cert img');
-    if (im && !lb.open) {
-      lbImg.src = im.dataset.full || im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = im.dataset.cap || im.alt;
-      lb.classList.remove('big'); lb.showModal(); return;
-    }
+    if (im && !lb.open) { openLb(best(im), im.dataset.cap || im.alt, im.alt); return; }
     if (!lb.open) return;
-    if (e.target === lbImg) { if (lb.classList.contains('big')) lb.close(); else lb.classList.add('big'); return; }
+    if (e.target === lbImg) {
+      if (moved > 6) return;  // это было перетаскивание
+      if (lb.classList.contains('big')) { unzoom(); return; }
+      const r = lbImg.getBoundingClientRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+      const w = Math.round(Math.min(Math.max(r.width * 2, lbImg.naturalWidth || 0), r.width * 3)), h = w * r.height / r.width;
+      lb.classList.add('big'); lbImg.style.width = w + 'px';
+      lb.scrollLeft = fx * w - lb.clientWidth / 2; lb.scrollTop = fy * h - lb.clientHeight / 2;
+      return;
+    }
     if (e.target === lb || e.target.closest('.lb-x')) lb.close();
   });
+
+  // ---------- 3D: дом из приложения, грузится только рядом с блоком ----------
+  (() => {
+    const box = document.getElementById('d3box'); if (!box) return;
+    const go = document.getElementById('d3go');
+    const load = () => {
+      if (box.querySelector('iframe')) return; go.hidden = true;
+      const f = document.createElement('iframe'); f.src = '3d/index.html'; f.title = 'Объёмный план частного дома'; f.loading = 'eager';
+      f.addEventListener('load', () => setTimeout(() => box.classList.add('on'), 900));
+      box.append(f);
+    };
+    go.addEventListener('click', load);
+    const strong = () => !reduce && !root.classList.contains('lite') && matchMedia('(hover: hover) and (pointer: fine)').matches && innerWidth >= 900
+      && (navigator.hardwareConcurrency || 4) >= 4 && !(navigator.deviceMemory && navigator.deviceMemory < 4);
+    if (!('IntersectionObserver' in window)) { go.hidden = false; return; }
+    const io = new IntersectionObserver((es) => {
+      if (!es[0].isIntersecting) return; io.disconnect();
+      if (strong()) load(); else go.hidden = false;
+    }, { rootMargin: '500px 0px' });
+    setTimeout(() => io.observe(box), 2200);  // после проверки на слабое устройство (lite)
+  })();
+
+  // ---------- комнаты на плане дома ----------
+  (() => {
+    const hs = document.getElementById('hs'); if (!hs) return;
+    const R = [['Котельная', 385, 344, 'img/boiler@2x.webp', 'Котельная: каждый прибор окрашен своим состоянием'],
+      ['Кухня', 578, 431, 'img/room_kitchen@2x.webp', 'Кухня'], ['Спальня', 230, 483, 'img/room_bedroom@2x.webp', 'Спальня'],
+      ['Санузел', 473, 535, 'img/room_bath@2x.webp', 'Санузел'], ['Гостиная', 770, 548, 'img/room_living@2x.webp', 'Гостиная']];
+    hs.innerHTML = R.map(([n, x, y], i) => `<button type="button" data-r="${i}" aria-label="Открыть комнату: ${n}" style="left:${(x / 14.4).toFixed(2)}%;top:${(y / 9).toFixed(2)}%"></button>`).join('');
+    hs.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-r]'); if (!b) return; e.stopPropagation();
+      const r = R[b.dataset.r]; openLb(r[3], 'Приложение ИГИХ · ' + r[4], r[0]);
+    });
+    setTimeout(() => hs.classList.add('hint'), 3200);
+  })();
 
   // ---------- копирование контактов ----------
   document.addEventListener('click', (e) => {
