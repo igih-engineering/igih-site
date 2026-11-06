@@ -91,7 +91,7 @@ p { margin: 0; }
 
 /* приближение: дом → котельная → дымоход → предупреждение */
 .zt { position: relative; height: 420vh; }
-.zs { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; overflow: hidden; }
+.zs { position: sticky; top: 64px; height: calc(100vh - 64px); height: calc(100svh - 64px); display: flex; align-items: center; overflow: hidden; }
 .zs-in { width: 100%; display: grid; grid-template-columns: minmax(0, .55fr) minmax(0, 1.6fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
 .zsteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
 .zsteps li { opacity: .38; transition: opacity .5s var(--ease); border-left: 2px solid var(--line-2); padding-left: 16px; }
@@ -164,7 +164,7 @@ p { margin: 0; }
 .fact b span { display: inline; margin: 0; font-size: inherit; color: inherit; }
 
 /* ---------- разделы ---------- */
-.sec { position: relative; padding-block: clamp(96px, 13vw, 170px); }
+.sec { position: relative; padding-block: clamp(66px, 9vw, 118px); }
 .sec-head { max-width: 860px; }
 .sec-head.center { margin-inline: auto; text-align: center; }
 .sec-head.center .kicker { justify-content: center; }
@@ -908,10 +908,10 @@ footer .brand b { font-size: 14px; }
       <h2 class="words">Стоимость комплекса или подписка</h2>
       <p class="intro rv">Целевые рынки — страны БРИКС:</p>
     </div>
-    <div class="markets rv"><span>Промышленность</span><span>ЦОДы</span><span>Ритейл</span><span>БПЛА</span></div>
+    <div class="markets rv"><span>Промышленность</span><span>Центры обработки данных</span><span>Ритейл</span><span>Беспилотная авиация</span></div>
     <div class="prices">
-      <article class="card price rv"><span class="mono">РАЗОВО (CAPEX) · СТОИМОСТЬ</span><div class="big"><span class="pre">от</span><span data-count="450000">450 000</span> ₽<small>за комплекс</small></div></article>
-      <article class="card price accent rv" style="--d:.1s"><span class="mono">ЕЖЕМЕСЯЧНО (OPEX) · ПОДПИСКА</span><div class="big"><span data-count="35000">35 000</span> ₽<small>в месяц</small></div></article>
+      <article class="card price rv"><span class="mono">РАЗОВАЯ ПОКУПКА</span><div class="big"><span class="pre">от</span><span data-count="450000">450 000</span> ₽<small>за комплекс</small></div></article>
+      <article class="card price accent rv" style="--d:.1s"><span class="mono">ЕЖЕМЕСЯЧНАЯ ПОДПИСКА</span><div class="big"><span data-count="35000">35 000</span> ₽<small>в месяц</small></div></article>
     </div>
   </div>
 </section>
@@ -1074,9 +1074,9 @@ footer .brand b { font-size: 14px; }
     const tick = () => {
       raf = 0;
       if (still()) return toStatic();
-      const r = zt.getBoundingClientRect(), span = r.height - innerHeight;
+      const r = zt.getBoundingClientRect(), span = r.height - (innerHeight - 64);
       if (r.bottom < -200 || r.top > innerHeight + 200) return;
-      render(span > 0 ? cl(-r.top / span) : 1);
+      render(span > 0 ? cl((64 - r.top) / span) : 1);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
     const toStatic = () => {
@@ -1299,8 +1299,6 @@ footer .brand b { font-size: 14px; }
   const onScroll = () => {
     const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
     nav.classList.toggle('solid', y > 20);
-    if (y > 500 && y > lastY + 6 && !lb.open) nav.classList.add('hide');
-    else if (y < lastY - 6 || y < 500) nav.classList.remove('hide');
     lastY = y;
     bar.style.setProperty('--p', h > 0 ? (y / h).toFixed(4) : 0);
     if (!reduce) {
