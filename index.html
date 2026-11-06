@@ -212,17 +212,23 @@ p { margin: 0; }
 .why { margin-top: 90px; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
 .why + .silos { margin-top: 22px; }
 .bridge { margin-top: 56px; display: grid; gap: 10px; }
-.bridge-row { display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1.25fr); gap: 14px; align-items: center; padding: 18px 24px; border-radius: 18px;
-  border: 1px solid var(--line); background: linear-gradient(90deg, rgba(232, 101, 79, .06), rgba(60, 201, 156, .07)); }
-.bridge-row .from { color: var(--ink-2); font-size: 16px; }
-.bridge-row .from b { color: var(--crit); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; display: block; font-weight: 500; margin-bottom: 4px; }
-.bridge-row .arr { color: var(--teal); justify-self: center; }
-.bridge-row .arr svg { width: 22px; height: 22px; display: block; }
-.bridge-row .to { font-size: 17px; font-weight: 600; color: var(--ink); }
+.bridge-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1.25fr); align-items: stretch; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--panel); }
+.bridge-row .from, .bridge-row .to { padding: 18px 24px; display: flex; flex-direction: column; justify-content: center; }
+.bridge-row .from { color: var(--ink-3); font-size: 16px; background: linear-gradient(90deg, rgba(232, 101, 79, .05), transparent 70%); }
+.bridge-row .to { font-size: 17px; font-weight: 600; color: var(--ink); background: linear-gradient(90deg, rgba(60, 201, 156, .09), rgba(60, 201, 156, .02) 80%); }
+.bridge-row .from b, .bridge-row .to b { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; display: block; font-weight: 500; margin-bottom: 5px; }
+.bridge-row .from b { color: rgba(232, 101, 79, .8); }
+.bridge-row .to b { color: var(--teal); }
+.bridge-row .arr { position: relative; display: grid; place-items: center; }
+.bridge-row .arr::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(180deg, transparent, var(--line-2) 30%, var(--line-2) 70%, transparent); }
+.bridge-row .arr span { position: relative; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: var(--teal);
+  background: var(--panel-2); border: 1px solid rgba(60, 201, 156, .35); box-shadow: 0 0 0 4px var(--panel), 0 0 18px -4px rgba(60, 201, 156, .5); }
+.bridge-row .arr svg { width: 12px; height: 12px; display: block; }
 @media (max-width: 960px) { .needs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .journey { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .journey::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 2px; height: auto; background: linear-gradient(180deg, rgba(231, 165, 77, .25), var(--signal) 35%, var(--crit)); }
   .journey li { padding: 0 0 26px 34px; } }
-@media (max-width: 600px) { .needs { grid-template-columns: minmax(0, 1fr); } .bridge-row { grid-template-columns: minmax(0, 1fr); gap: 6px; } .bridge-row .arr { justify-self: start; transform: rotate(90deg); } }
+@media (max-width: 600px) { .needs { grid-template-columns: minmax(0, 1fr); } .bridge-row { grid-template-columns: minmax(0, 1fr); } .bridge-row .arr { height: 0; z-index: 1; } .bridge-row .arr::before { display: none; } .bridge-row .arr span { transform: rotate(90deg); } .bridge-row .from { padding-bottom: 20px; } .bridge-row .to { padding-top: 20px; border-top: 1px solid var(--line); } }
 .silos { margin-top: 80px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .silo { padding: 34px 30px 36px; min-height: 300px; display: flex; flex-direction: column; }
 .silo .num { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
@@ -410,15 +416,7 @@ footer .brand b { font-size: 14px; }
 .cm-go { grid-area: g; font-size: 13px; padding: 7px 14px; border-radius: 99px; background: var(--teal); color: #04140f; font-weight: 600; text-decoration: none; }
 @media (max-width: 480px) { .cm-row { grid-template-columns: 1fr auto; grid-template-areas: "l l" "v v" "c g"; } .cm-row .copy { justify-self: start; } }
 .lite .cm::backdrop { backdrop-filter: none; }
-/* комнаты на плане в первом экране */
 .hs-wrap { position: relative; }
-.hs { position: absolute; inset: 0; pointer-events: none; }
-.hs button { position: absolute; transform: translate(-50%, -50%); width: 7.4%; height: 4.4%; min-width: 34px; min-height: 22px; padding: 0; border: 0; border-radius: 99px;
-  background: transparent; cursor: zoom-in; pointer-events: auto; }
-.hs button::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; border: 1.5px solid var(--teal); opacity: 0; transition: opacity .3s; }
-.hs button:hover::after, .hs button:focus-visible::after { opacity: 1; }
-.hs.hint button::after { animation: hsHint 2.4s ease-in-out 2; }
-@keyframes hsHint { 0%, 100% { opacity: 0; } 50% { opacity: .9; } }
 .zsteps li[role="button"] { cursor: pointer; }
 .zsteps li[role="button"]:hover { opacity: .75; }
 .zsteps li.on[role="button"]:hover { opacity: 1; }
@@ -661,10 +659,10 @@ footer .brand b { font-size: 14px; }
   <div class="stage-wrap wrap">
     <div class="stage" id="stage">
       <div class="win rv" style="--d:1.35s"><div class="win-bar"><i></i><i></i><i></i><span>ИГИХ · частный дом · пилот</span></div>
-        <div class="hs-wrap"><img src="img/house.webp" srcset="img/house.webp 1440w, img/house@2x.webp 2880w" sizes="(max-width: 900px) 100vw, 1100px" width="1440" height="900" fetchpriority="high" alt="Приложение ИГИХ: частный дом целиком, у котельной предупреждение" data-cap="Приложение ИГИХ: частный дом целиком, у котельной предупреждение"><div class="hs" id="hs"></div></div></div>
+        <div class="hs-wrap"><img src="img/house.webp" srcset="img/house.webp 1440w, img/house@2x.webp 2880w" sizes="(max-width: 900px) 100vw, 1100px" width="1440" height="900" fetchpriority="high" alt="Приложение ИГИХ: частный дом целиком, у котельной предупреждение" data-cap="Приложение ИГИХ: частный дом целиком, у котельной предупреждение"></div></div>
       <figure class="float rv" style="--d:1.6s"><img src="img/house_panel.webp" srcset="img/house_panel.webp 345w, img/house_panel@2x.webp 690w" sizes="345px" width="345" height="463" alt="Тревоги и показания датчиков" data-cap="Тревоги и показания датчиков"><figcaption>показания крупно</figcaption></figure>
     </div>
-    <p class="zoom-tip">Нажмите на комнату на плане или на любой снимок — он откроется на весь экран. Ещё одно нажатие увеличит место, по которому нажали.</p>
+    <p class="zoom-tip">Нажмите на любой снимок — он откроется на весь экран. Ещё одно нажатие увеличит место, по которому нажали.</p>
   </div>
 </header>
 
@@ -757,10 +755,10 @@ footer .brand b { font-size: 14px; }
       </div>
     </div>
     <div class="bridge">
-      <div class="bridge-row rv" style="--d:0s"><div class="from"><b>было</b>Не знаю, что на объекте, пока не позвонят</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Объект целиком в приложении, оповещения в мессенджерах</div></div>
-      <div class="bridge-row rv" style="--d:0.06s"><div class="from"><b>было</b>Сирена, когда авария уже случилась</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Предупреждение заранее: по сочетанию причин и прогнозу погоды</div></div>
-      <div class="bridge-row rv" style="--d:0.12s"><div class="from"><b>было</b>Несколько систем, и каждая видит только своё</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Оборудование, люди и погода в одной картине</div></div>
-      <div class="bridge-row rv" style="--d:0.18s"><div class="from"><b>было</b>Нечем доказать, что произошло</div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M14 6l6 6-6 6"/></svg></div><div class="to">Журнал событий: запись нельзя изменить или удалить</div></div>
+      <div class="bridge-row rv" style="--d:0s"><div class="from"><b>было</b>Не знаю, что на объекте, пока не позвонят</div><div class="arr" aria-hidden="true"><span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span></div><div class="to"><b>стало</b>Объект целиком в приложении, оповещения в мессенджерах</div></div>
+      <div class="bridge-row rv" style="--d:0.06s"><div class="from"><b>было</b>Сирена, когда авария уже случилась</div><div class="arr" aria-hidden="true"><span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span></div><div class="to"><b>стало</b>Предупреждение заранее: по сочетанию причин и прогнозу погоды</div></div>
+      <div class="bridge-row rv" style="--d:0.12s"><div class="from"><b>было</b>Несколько систем, и каждая видит только своё</div><div class="arr" aria-hidden="true"><span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span></div><div class="to"><b>стало</b>Оборудование, люди и погода в одной картине</div></div>
+      <div class="bridge-row rv" style="--d:0.18s"><div class="from"><b>было</b>Нечем доказать, что произошло</div><div class="arr" aria-hidden="true"><span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></span></div><div class="to"><b>стало</b>Журнал событий: запись нельзя изменить или удалить</div></div>
     </div>
     <p class="intro rv impl"><b>Гибкость внедрения.</b> Ставится как самостоятельный комплекс «под ключ» или поверх уже установленного оборудования: объединяет разрозненные системы в одну и продлевает жизнь существующему оборудованию — в том числе зарубежному, которое сложно заменить в условиях импортозамещения.</p>
   </div>
@@ -1514,20 +1512,6 @@ footer .brand b { font-size: 14px; }
       if (strong()) load(); else go.hidden = false;
     }, { rootMargin: '500px 0px' });
     setTimeout(() => io.observe(box), 2200);  // после проверки на слабое устройство (lite)
-  })();
-
-  // ---------- комнаты на плане дома ----------
-  (() => {
-    const hs = document.getElementById('hs'); if (!hs) return;
-    const R = [['Котельная', 385, 344, 'img/boiler@2x.webp', 'Котельная: каждый прибор окрашен своим состоянием'],
-      ['Кухня', 578, 431, 'img/room_kitchen@2x.webp', 'Кухня'], ['Спальня', 230, 483, 'img/room_bedroom@2x.webp', 'Спальня'],
-      ['Санузел', 473, 535, 'img/room_bath@2x.webp', 'Санузел'], ['Гостиная', 770, 548, 'img/room_living@2x.webp', 'Гостиная']];
-    hs.innerHTML = R.map(([n, x, y], i) => `<button type="button" data-r="${i}" aria-label="Открыть комнату: ${n}" style="left:${(x / 14.4).toFixed(2)}%;top:${(y / 9).toFixed(2)}%"></button>`).join('');
-    hs.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-r]'); if (!b) return; e.stopPropagation();
-      const r = R[b.dataset.r]; openLb(r[3], 'Приложение ИГИХ · ' + r[4], r[0]);
-    });
-    setTimeout(() => hs.classList.add('hint'), 3200);
   })();
 
   // ---------- копирование контактов ----------
