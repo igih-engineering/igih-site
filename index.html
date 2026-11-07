@@ -49,18 +49,23 @@ p { margin: 0; }
   transition: transform .45s var(--ease), background-color .35s, border-color .35s; border-bottom: 1px solid transparent; }
 .nav.solid { background: rgba(6, 13, 11, .72); backdrop-filter: saturate(160%) blur(18px); -webkit-backdrop-filter: saturate(160%) blur(18px); border-color: var(--line); }
 .nav.hide { transform: translateY(-100%); }
-.nav .wrap { display: flex; align-items: center; gap: 22px; height: 64px; }
+.nav .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
 .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); flex: none; }
 .brand img { width: 34px; height: 34px; filter: brightness(1.4) saturate(1.1) drop-shadow(0 0 8px var(--teal-glow)); }
 .brand b { font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: .16em; }
 .links { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; min-width: 0; margin-inline: auto; }
 .links::-webkit-scrollbar { display: none; }
-.links a { color: var(--ink-2); text-decoration: none; font-size: 14px; padding: 8px 12px; border-radius: 99px; white-space: nowrap; transition: color .25s, background-color .25s; }
+.links a { color: var(--ink-2); text-decoration: none; font-size: 13.5px; padding: 8px 9px; border-radius: 99px; white-space: nowrap; transition: color .25s, background-color .25s; }
 .links a:hover, .links a.on { color: var(--ink); background: rgba(255, 255, 255, .06); }
 .cta { flex: none; border: 0; font-family: inherit; cursor: pointer; text-decoration: none; color: #fff; font-weight: 600; font-size: 14px; padding: 9px 18px; border-radius: 99px;
   background: linear-gradient(180deg, var(--teal-3), var(--teal-2)); box-shadow: 0 6px 22px -8px var(--teal-glow), inset 0 1px 0 rgba(255,255,255,.18);
   transition: transform .3s var(--ease), box-shadow .3s; }
 .cta:hover { transform: translateY(-1px); box-shadow: 0 10px 30px -8px rgba(60, 201, 156, .45), inset 0 1px 0 rgba(255,255,255,.2); }
+.navcert { flex: none; display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 99px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+  color: var(--teal); border: 1px solid rgba(60, 201, 156, .35); background: rgba(60, 201, 156, .07); transition: background-color .25s, border-color .25s; }
+.navcert svg { width: 16px; height: 16px; flex: none; }
+@media (min-width: 1101px) and (max-width: 1279px) { .navcert { padding: 8px; } .navcert span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } }
+.navcert:hover { background: rgba(60, 201, 156, .14); border-color: rgba(60, 201, 156, .6); }
 .progress { position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--p, 0));
   background: linear-gradient(90deg, transparent, var(--teal)); }
 
@@ -570,6 +575,7 @@ footer .brand b { font-size: 14px; }
 @media (max-width: 1100px) {
   .links { display: none; }
   .nav .wrap { justify-content: space-between; }
+  .navcert { margin-left: auto; }
 }
 @media (max-width: 960px) {
   .solution { grid-template-columns: minmax(0, 1fr); }
@@ -597,6 +603,7 @@ footer .brand b { font-size: 14px; }
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .cta { display: none; }
+  .navcert { font-size: 12.5px; padding: 6px 11px 6px 9px; }
   .hero { padding-top: calc(118px + env(safe-area-inset-top, 0px)); }
   .stage-wrap { margin-top: 56px; }
   .win-bar { height: 24px; padding: 0 10px; gap: 5px; } .win-bar i { width: 7px; height: 7px; } .win-bar span { display: none; }
@@ -638,6 +645,7 @@ footer .brand b { font-size: 14px; }
       <a href="#need">Потребность</a><a href="#problem">Боль</a><a href="#solution">Решение</a><a href="#how">Как работает</a><a href="#objects">Объекты</a>
       <a href="#app">Приложение</a><a href="#tech">Технологии</a><a href="#business">Модель</a><a href="#status">Статус</a>
     </div>
+    <a class="navcert" href="#cert" title="Свидетельства о депонировании технического задания"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.6 13.2 3.6v4c0 3.2-2.2 5.6-5.2 6.8C5 13.2 2.8 10.8 2.8 7.6v-4z"/><path d="m5.6 8 1.7 1.7L10.6 6.4" stroke-linecap="round"/></svg><span>ТЗ задепонировано</span></a>
     <button class="cta" type="button" data-contact>Связаться</button>
   </div>
   <div class="progress" aria-hidden="true"></div>
